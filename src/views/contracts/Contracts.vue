@@ -32,16 +32,15 @@
                 <label v-if="isMobile">
                   {{$t('contractStatus.'+scope.row.status)}}
                 </label>
-
                 <label v-else>
-                    <span class="cursor-p click" v-if="scope.row.status ===0" @click="toUrl('contractsInfo',scope.row.contractAddress,'second')">
+                    <span class="cursor-p click" v-if="scope.row.status ===0"
+                          @click="toUrl('contractsInfo',scope.row.contractAddress,'second')">
                     {{$t('contractStatus.'+scope.row.status)}}
                   </span>
-                    <span v-if="scope.row.status !==0">
+                  <span v-if="scope.row.status !==0">
                     {{$t('contractStatus.'+scope.row.status)}}
                   </span>
                 </label>
-
               </template>
             </el-table-column>
             <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="100" align="left">
@@ -79,22 +78,18 @@
             </el-table-column>
             <el-table-column :label="$t('public.status')" width="120" align="left">
               <template slot-scope="scope">
-
                 <label v-if="isMobile">
                   {{$t('contractStatus.'+scope.row.status)}}
                 </label>
-
                 <label v-else>
-                    <span class="cursor-p click" v-if="scope.row.status ===0 && !isMobile"
+                    <span class="cursor-p click" v-if="scope.row.status ===0"
                           @click="toUrl('contractsInfo',scope.row.contractAddress,'second')">
                     {{$t('contractStatus.'+scope.row.status)}}
-                    </span>
-                  <span v-if="scope.row.status !==0 && isMobile">
-                      {{$t('contractStatus.'+scope.row.status)}}
-                    </span>
+                  </span>
+                  <span v-if="scope.row.status !==0">
+                    {{$t('contractStatus.'+scope.row.status)}}
+                  </span>
                 </label>
-
-
               </template>
             </el-table-column>
             <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="180"
