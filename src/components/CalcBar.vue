@@ -81,7 +81,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value < 0 || value > 100) {
+          if (value < 10 || 100 < value) {
             callback(new Error(this.$t('cale.cale11')))
           } else {
             callback()
@@ -142,7 +142,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value >= 0 && 1 < value) {
+          if (value < 10 || 100 < value) {
             callback(new Error(this.$t('cale.cale11')))
           } else {
             callback()

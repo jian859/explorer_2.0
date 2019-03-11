@@ -273,7 +273,7 @@
           display: none;
         }
         .header_language {
-          width: 60%;
+          width: 61.5%;
           .top-search {
             width: 100%;
             .top_height {
@@ -313,7 +313,7 @@
         position: absolute;
         right: 0;
         top: 3.4rem;
-        z-index: 99;
+        z-index: 9999;
         .language {
           display: initial;
           float: none;
