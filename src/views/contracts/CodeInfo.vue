@@ -15,7 +15,8 @@
             <i class="el-icon-download fr click"></i>
           </div>
           <div class="code-trees">
-            <el-tree :data="codeTress" :props="defaultProps" @node-click="handleNodeClick" :default-expand-all="true"></el-tree>
+            <el-tree :data="codeTress" :props="defaultProps" @node-click="handleNodeClick" :default-expand-all="true">
+            </el-tree>
           </div>
         </div>
         <div class="code-source fl">

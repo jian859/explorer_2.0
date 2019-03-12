@@ -77,7 +77,8 @@
       </div>
     </div>
     <el-dialog title="" :visible.sync="calcDialog" :close-on-click-modal="false" center class="home_dialog">
-      <CalcBar></CalcBar>
+      <CalcBar>
+      </CalcBar>
     </el-dialog>
   </div>
 </template>

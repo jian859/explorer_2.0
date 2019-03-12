@@ -86,9 +86,12 @@
                 <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="createTime" :label="$t('public.time')" min-width="180" align="left"></el-table-column>
-              <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="220" align="left"></el-table-column>
-              <el-table-column prop="size" :label="$t('public.size')" width="280" align="left"></el-table-column>
+              <el-table-column prop="createTime" :label="$t('public.time')" min-width="180" align="left">
+              </el-table-column>
+              <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="220" align="left">
+              </el-table-column>
+              <el-table-column prop="size" :label="$t('public.size')" width="280" align="left">
+              </el-table-column>
               <el-table-column :label="$t('consensusInfo.consensusInfo8')+'(NULS)'" width="280" align="left">
                 <template slot-scope="scope">{{ scope.row.reward/100000000 }}</template>
               </el-table-column>
@@ -105,20 +108,24 @@
           </el-tab-pane>
           <el-tab-pane :label="$t('consensusInfo.consensusInfo9')" name="second">
             <el-table :data="punishList" stripe border style="width: 100%">
-              <el-table-column label="" width="30"></el-table-column>
-              <el-table-column prop="blockHeight" :label="$t('public.height')" width="180" align="left"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
+              <el-table-column prop="blockHeight" :label="$t('public.height')" width="180" align="left">
+              </el-table-column>
               <el-table-column prop="txid" label="TXID" min-width="250" align="left">txHash
                 <template slot-scope="scope"><span class="cursor-p click"
                                                    @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="createTime" :label="$t('public.time')" width="180" align="left"></el-table-column>
+              <el-table-column prop="createTime" :label="$t('public.time')" width="180" align="left">
+              </el-table-column>
               <el-table-column :label="$t('public.yellowCard')+'/'+ $t('public.redCard')" width="180" align="left">
                 <template slot-scope="scope">
                   <i class="iconfont font20" :class="scope.row.type === 1 ? 'icon-huang yellow' : 'icon-hong fred' "></i>
                 </template>
               </el-table-column>
-              <el-table-column prop="reason" :label="$t('public.reason')" width="200" align="left"></el-table-column>
+              <el-table-column prop="reason" :label="$t('public.reason')" width="200" align="left">
+              </el-table-column>
             </el-table>
             <div class="paging">
               <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
@@ -132,12 +139,14 @@
           </el-tab-pane>
           <el-tab-pane :label="$t('consensusInfo.consensusInfo10')" name="three">
             <el-table :data="consensusDeposit" stripe border style="width: 100%">
-              <el-table-column label="" width="30"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
               <el-table-column :label="$t('consensusInfo.consensusInfo11')" min-width="250" align="left">
                 <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="createTime" :label="$t('consensusInfo.consensusInfo12')" width="220" align="left"></el-table-column>
+              <el-table-column prop="createTime" :label="$t('consensusInfo.consensusInfo12')" width="220" align="left">
+              </el-table-column>
               <el-table-column :label="$t('public.amount')+'(NULS)'" width="220" align="left">
                 <template slot-scope="scope">{{ scope.row.amount/100000000 }}</template>
               </el-table-column>
@@ -155,10 +164,12 @@
           <el-tab-pane :label="$t('consensusInfo.consensusInfo13')" name="four">
             <el-select v-model="depositValue" @change="changeDepositTypeo" class="mb_20">
               <el-option v-for="item in depositTypeo" :key="item.value" :label="$t('history.'+item.label)"
-                         :value="item.value"></el-option>
+                         :value="item.value">
+              </el-option>
             </el-select>
             <el-table :data="consensusCancelDeposit" stripe border style="width: 100%">
-              <el-table-column label="" width="30"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
               <el-table-column label="TXID" min-width="200" align="left">
                 <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.agentHashs }}</span>
                 </template>
@@ -172,7 +183,8 @@
                 <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
+              <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left">
+              </el-table-column>
               <el-table-column :label="$t('public.join') +'/'+ $t('public.quit')" width="100" align="left">
                 <template slot-scope="scope">{{ scope.row.type === 0 ? $t('public.join'):$t('public.quit') }}</template>
               </el-table-column>
@@ -412,7 +424,7 @@
       /**
        * url 连接跳转
        * @param name
-       * @param height
+       * @param parmes
        */
       toUrl(name, parmes) {
         let newQuery = {};

@@ -35,7 +35,8 @@
 
       <h4 class=" font20 capitalize">{{$t('public.transactionList')}}</h4>
       <div class="select">
-        <SelectBar size="small" v-model="typeRegion" @change="changeType"></SelectBar>
+        <SelectBar size="small" v-model="typeRegion" @change="changeType">
+        </SelectBar>
       </div>
       <div class="info_table">
         <el-table :data="txList" stripe style="width: 100%" border>
@@ -45,7 +46,8 @@
             <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
+          <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
+          </el-table-column>
           <el-table-column :label="$t('public.type')" width="180" align="left">
             <template slot-scope="scope">{{ $t('type.'+scope.row.type) }}</template>
           </el-table-column>
@@ -58,7 +60,8 @@
         </el-table>
       </div>
 
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
+      </paging>
     </div>
   </div>
 </template>
@@ -119,7 +122,7 @@
        **/
       copy(sting) {
         copys(sting);
-        this.$message({message: '复制成功', type: 'success', duration: 1000});
+        this.$message({message: this.$t('public.copysuccess'), type: 'success', duration: 1000});
       },
 
       /**
@@ -183,7 +186,7 @@
       /**
        * url 连接跳转
        * @param name
-       * @param height
+       * @param parmes
        */
       toUrl(name, parmes) {
         let newQuery = {};

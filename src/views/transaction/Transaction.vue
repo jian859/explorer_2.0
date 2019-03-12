@@ -18,16 +18,19 @@
                  :legend-visible="false"
                  :colors="colors"
                  :settings="chartSettings"
-                 :loading="timeRateDataLoading"></ve-line>
+                 :loading="timeRateDataLoading">
+        </ve-line>
       </div>
     </div>
     <div class="info bg-gray">
       <div class="w1200">
         <h2 class="title font18 capitalize">{{$t('public.transactionList')}}</h2>
         <div class="tabs w1200">
-          <SelectBar size="small" v-model="typeRegion" @change="changeType"></SelectBar>
+          <SelectBar size="small" v-model="typeRegion" @change="changeType">
+          </SelectBar>
           <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block1')"
-                     v-show="typeRegion=== 0" @change="hideConsensusList"></el-switch>
+                     v-show="typeRegion=== 0" @change="hideConsensusList">
+          </el-switch>
           <el-table :data="txList" style="width: 100%;" stripe border v-loading="txListLoading">
             <el-table-column width="30" align="left">
             </el-table-column>
@@ -39,7 +42,8 @@
               <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
+            <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.type')" width="180" align="left">
               <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span></template>
             </el-table-column>
@@ -51,7 +55,8 @@
             </el-table-column>
           </el-table>
 
-          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.page"></paging>
+          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.page">
+          </paging>
         </div>
       </div>
     </div>

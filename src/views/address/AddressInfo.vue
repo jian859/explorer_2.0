@@ -58,7 +58,8 @@
     <div class="bottoms w1200 cb">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
-          <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
+          <SelectBar v-model="typeRegion" @change="changeType">
+          </SelectBar>
           <!--<i class="iconfont icon-dwonload_gray_icon click ml_20" title="更多功能敬请期待..."></i>-->
           <el-switch class="hide-switch fr" v-model="hideSwitch" v-show="typeRegion.toString() === '0'"
                      :width="32"
@@ -78,7 +79,8 @@
                       @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.type')" width="150" align="left">
               <template slot-scope="scope">
                 <span>{{ $t('type.'+scope.row.type) }}</span>
@@ -134,7 +136,8 @@
                 <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddresss }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.time')" width="200" align="left"></el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.time')" width="200" align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
               <template slot-scope="scope">
                 <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
@@ -165,7 +168,8 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="220"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="220" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">{{ scope.row.tokenSymbol }}</span>

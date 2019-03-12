@@ -39,7 +39,8 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
             <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
               <el-table-column :label="$t('public.height')" width="80" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
@@ -64,8 +65,10 @@
                                                    @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddress }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" width="120" align="left"></el-table-column>
+              <el-table-column prop="time" :label="$t('public.time')" width="160" align="left">
+              </el-table-column>
+              <el-table-column prop="value" :label="$t('public.amount')" width="120" align="left">
+              </el-table-column>
             </el-table>
 
             <div class="paging">
@@ -81,7 +84,8 @@
           </el-tab-pane>
           <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
             <el-table :data="accountTokensList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
               <el-table-column :label="$t('tokenInfo.tokenInfo4')" width="150" align="left">
                 <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
               </el-table-column>
@@ -90,10 +94,10 @@
                                                    @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="balance" :label="$t('tokenInfo.tokenInfo5')" width="250"
-                               align="left"></el-table-column>
-              <el-table-column prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250"
-                               align="left"></el-table-column>
+              <el-table-column prop="balance" :label="$t('tokenInfo.tokenInfo5')" width="250" align="left">
+              </el-table-column>
+              <el-table-column prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250" align="left">
+              </el-table-column>
             </el-table>
             <div class="paging">
               <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
@@ -221,7 +225,6 @@
         this.getAccountTokensList(this.pager.page, this.pager.rows, this.contractsAddress);
       },
 
-
       /**
        * tab 切换
        * @param tab
@@ -241,6 +244,7 @@
        * url 连接跳转
        * @param name
        * @param parmes
+       * @param tabName
        */
       toUrl(name, parmes, tabName) {
         let newQuery = {};

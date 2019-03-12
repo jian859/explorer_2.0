@@ -3,15 +3,18 @@
     <div class="c_list_search">
       <div class="type_select fl">
         <SelectBar v-model="nodeTypeRegion" :typeOptions="nodeTypeOptions" typeName="nodeType"
-                   @change="changeNodeType"></SelectBar>
+                   @change="changeNodeType">
+        </SelectBar>
       </div>
       <div class="status_select fl">
         <SelectBar v-model="nodeStatusRegion" :typeOptions="nodeStatusOptions" typeName="nodeStatus"
-                   @change="changeNodeStatus"></SelectBar>
+                   @change="changeNodeStatus">
+        </SelectBar>
       </div>
       <div class="search_input">
         <el-input v-model="searchValue" class="search" :placeholder="$t('consensus.search')"
-                  suffix-icon="el-icon-search"></el-input>
+                  suffix-icon="el-icon-search">
+        </el-input>
         <i class="iconfont fr click" :class="viewList ? 'icon-list_icon':'icon-chart_icon'"
            @click="viewList = !viewList"></i>
       </div>
@@ -30,7 +33,8 @@
           <template slot-scope="scope"><span>{{ scope.row.agentAlias ? scope.row.agentAlias : '-' }}</span></template>
         </el-table-column>
         <el-table-column prop="creditValue" :label="$t('public.creditValue')" width="150"
-                         align="left"></el-table-column>
+                         align="left">
+        </el-table-column>
         <el-table-column :label="$t('public.proportion')" width="100" align="left">
           <template slot-scope="scope">{{ scope.row.commissionRate }}%</template>
         </el-table-column>
@@ -44,7 +48,8 @@
           <!-- <template slot-scope="scope">{{ scope.row.totalDeposit/100000000 }}</template>-->
         </el-table-column>
         <el-table-column prop="depositCount" :label="$t('public.participants')" width="150"
-                         align="left"></el-table-column>
+                         align="left">
+        </el-table-column>
       </el-table>
     </div>
 

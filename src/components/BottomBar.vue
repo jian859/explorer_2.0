@@ -25,9 +25,7 @@
         this.getNULSNumber();
       }, 10000);
     },
-
     methods:{
-
       /**
        * 获取最新高度
        */

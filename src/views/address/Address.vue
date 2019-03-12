@@ -30,7 +30,8 @@
         </el-table-column>
 
       </el-table>
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
+      </paging>
     </div>
   </div>
 </template>

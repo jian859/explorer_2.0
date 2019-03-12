@@ -30,9 +30,11 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane :label="$t('public.transactionList')" name="first">
             <SelectBar v-model="contractsTypeRegion" :typeOptions="contractsStatusOptions" typeName="type"
-                       @change="changeType"></SelectBar>
+                       @change="changeType">
+            </SelectBar>
             <el-table :data="contractsTxList" stripe border style="width: 100%;margin-top: 14px">
-              <el-table-column label="" width="30"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
               <el-table-column prop="height" :label="$t('public.height')" width="180" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
@@ -43,7 +45,8 @@
                   <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
+              <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
+              </el-table-column>
               <el-table-column prop="type" :label="$t('public.type')" width="180" align="left">
                 <template slot-scope="scope">{{$t('type.'+scope.row.type)}}</template>
               </el-table-column>
@@ -51,24 +54,29 @@
                 <template slot-scope="scope">{{scope.row.fee/100000000}}</template>
               </el-table-column>
             </el-table>
-            <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
+            <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
+            </paging>
 
           </el-tab-pane>
           <el-tab-pane v-if="!isMobile" :label="$t('contractsInfo.contractsInfo0')" name="second" :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <div v-if="activeName === 'second'">
-              <CodeInfo  :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
+              <CodeInfo  :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus">
+              </CodeInfo>
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('transactionInfo.transactionInfo9')" name="three">
             <el-table :data="modeList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30"></el-table-column>
-              <el-table-column prop="name" label="Method" width="280" align="left"></el-table-column>
+              <el-table-column label="" width="30">
+              </el-table-column>
+              <el-table-column prop="name" label="Method" width="280" align="left">
+              </el-table-column>
               <el-table-column prop="height" label="Parameter" min-width="280" align="left">
                 <template slot-scope="scope">
                   <span v-for="item in scope.row.params" :key="item">{{item}}-</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="returnType" label="Return Type" width="280" align="left"></el-table-column>
+              <el-table-column prop="returnType" label="Return Type" width="280" align="left">
+              </el-table-column>
             </el-table>
           </el-tab-pane>
         </el-tabs>
@@ -216,9 +224,6 @@
 
       handleClick() {
         //console.log(tab, event);
-      },
-
-      getItemList() {
       },
 
       /**

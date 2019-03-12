@@ -31,14 +31,16 @@
                  :legend-visible="false"
                  :colors="colors"
                  :settings="chartSettings"
-                 :loading="timeRateDataLoading"></ve-line>
+                 :loading="timeRateDataLoading">
+        </ve-line>
        <!-- <ChartBar showID="mountNodes" :chartData="chartData" width="1200"></ChartBar>-->
       </div>
     </div>
     <div class="info bg-gray">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200 tab_consensus">
         <el-tab-pane :label="$t('consensus.consensus2')" name="first">
-          <ConsensusList></ConsensusList>
+          <ConsensusList>
+          </ConsensusList>
         </el-tab-pane>
         <el-tab-pane :label="$t('consensus.consensus3')" name="second">
           <div class="cards">
@@ -75,17 +77,21 @@
                 <span>{{ scope.row.startTime }}&#45;&#45;&#45;&#45;{{ scope.row.endTime }}</span></template>
             </el-table-column>
             <el-table-column prop="memberCount" :label="$t('consensus.consensus10')" width="150"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.yellowCard')+'/'+ $t('public.redCard')" width="180" align="left">
               <template slot-scope="scope"><span>{{ scope.row.yellowCardCount }}-{{ scope.row.redCardCount }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="producedBlockCount" :label="$t('consensus.consensus11')" width="150"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
             <el-table-column prop="lostRate" :label="$t('public.lostRate')" width="150"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
           </el-table>
-          <paging :pager="pager" @change="pagesList"></paging>
+          <paging :pager="pager" @change="pagesList">
+          </paging>
         </el-tab-pane>
       </el-tabs>
     </div>

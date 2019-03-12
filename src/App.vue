@@ -1,8 +1,11 @@
 <template>
   <div id="app" class="app">
-    <HeaderBar></HeaderBar>
-    <router-view></router-view>
-    <BottomBar></BottomBar>
+    <HeaderBar>
+    </HeaderBar>
+    <router-view>
+    </router-view>
+    <BottomBar>
+    </BottomBar>
   </div>
 </template>
 
@@ -34,7 +37,6 @@ export default {
         })
     }
   }
-
 }
 </script>
 

@@ -4,7 +4,8 @@
       <div class="w1200">
         <h2 class="title font24 fl capitalize">{{$t('block.block0')}}</h2>
         <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block2')"
-                   @change="hideOneList"></el-switch>
+                   @change="hideOneList">
+        </el-switch>
       </div>
     </div>
     <div class="tabs w1200">
@@ -15,8 +16,10 @@
           <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" :label="$t('public.time')" width="230"></el-table-column>
-        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="180"></el-table-column>
+        <el-table-column prop="createTime" :label="$t('public.time')" width="230">
+        </el-table-column>
+        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="180">
+        </el-table-column>
         <el-table-column :label="$t('public.outNode')" min-width="180">
           <template slot-scope="scope">
             <label class="cursor-p" v-show="scope.row.seedPacked">
@@ -28,12 +31,14 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100"></el-table-column>
+        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100">
+        </el-table-column>
         <el-table-column :label="$t('public.blockReward')" width="180" align="center">
           <template slot-scope="scope">{{ scope.row.reward/100000000 }}</template>
         </el-table-column>
       </el-table>
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
+      </paging>
     </div>
   </div>
 </template>
@@ -105,7 +110,7 @@
       /**
        * url 连接跳转
        * @param name
-       * @param height
+       * @param parmes
        */
       toUrl(name, parmes) {
         this.$router.push({
