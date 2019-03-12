@@ -72,9 +72,9 @@
        * 获取块列表
        */
       getBlockList(pager, rows, packAddress, isShow) {
-        this.$post('/', 'getBlockList', [pager, rows, packAddress, isShow])
+        this.$post('/', 'getBlockHeaderList', [pager, rows,isShow, packAddress])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');

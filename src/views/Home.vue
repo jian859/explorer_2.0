@@ -53,7 +53,7 @@
             <i @click="toCalc" class="iconfont icon-calculator_icon font18 cursor-p click"></i>
           </div>
         </div>
-        <ve-line style="top: -40px" height="100%"  width="100%"
+        <ve-line style="top: -40px" height="100%" width="100%"
                  :loading="yearChartLoading"
                  :data="yearChartData"
                  :legend-visible="false"
@@ -104,7 +104,7 @@
       };
 
       return {
-        isMobile:false,
+        isMobile: false,
         //搜索的内容
         homeSearch: '',
         height: 0,//当前高度
@@ -159,10 +159,6 @@
       CalcBar
     },
     methods: {
-      /**
-       *  获取块id
-       **/
-
       /**
        *  首页全局搜索框
        **/
@@ -447,55 +443,60 @@
       }
     }
 
-    .home_dialog{
-      .el-dialog{
+    .home_dialog {
+      .el-dialog {
         width: 745px;
       }
     }
 
     @media screen and (max-width: 1000px) {
-      .h_height{
+      .h_height {
         margin: 1.2rem 0;
       }
-      .search{
+
+      .search {
         width: 90%;
 
       }
-      .h_count{
+
+      .h_count {
         margin: 1rem auto 0;
-        ul{
+        ul {
           height: 5rem;
-          li{
+          li {
             height: 3rem;
             margin: 1rem 0 0 0;
-            p{
+            p {
               font-size: 0.7rem;
               line-height: 0.7rem;
             }
-            h5{
+            h5 {
               font-size: 0.8rem;
               line-height: 0.8rem;
             }
           }
         }
       }
-      .h_animation{
+
+      .h_animation {
         display: none;
       }
-      .h_chart{
+
+      .h_chart {
         height: auto;
         margin: 1.5rem 0;
         .h_chart_left, .h_chart_right {
-           width: 100%;
+          width: 100%;
           height: 15rem;
           float: none;
         }
 
       }
-      .home_dialog{
-        .el-dialog{
+
+      .home_dialog {
+        .el-dialog {
           width: 92%;
-          .el-dialog__body{
+          .el-dialog__body {
             padding: 1rem 0.5rem;
           }
         }

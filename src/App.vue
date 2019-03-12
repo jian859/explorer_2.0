@@ -14,7 +14,27 @@ export default {
   components: {
     HeaderBar,
     BottomBar
+  },
+  created() {
+    if(!sessionStorage.hasOwnProperty("chainId")){
+      this.getChains();
+    }
+  },
+  methods: {
+    /**
+     *  获取链ID
+     **/
+    getChains() {
+      this.$post('/', 'getChains', [])
+        .then((response) => {
+          //console.log(response);
+          if (response.hasOwnProperty("result")) {
+            sessionStorage.setItem("chainId",response.result.list[0])
+          }
+        })
+    }
   }
+
 }
 </script>
 
