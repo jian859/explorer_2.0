@@ -15,7 +15,7 @@
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.status')}}<span>{{$t('contractStatus.'+contractsInfo.status)}}</span></p></li>
-        <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.transferCount}}</span></p></li>
+        <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.txCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.balance')}}<span>{{contractsInfo.balance/100000000}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}
           <span class="click mobile_s" @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
@@ -171,7 +171,6 @@
               } else {
                 response.result.certificationTime = 'null'
               }
-
               this.contractsInfo = response.result;
               this.modeList = response.result.methods;
             }
