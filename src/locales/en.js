@@ -95,7 +95,7 @@ const en = {
     "7": "Yellow card",
     "8": "Red card",
     "9": "Unregister node",
-    "10": "General Data'",
+    "10": "General Data",
     "100": "Create contract",
     "101": "Call contract",
     "1011": "Call Contract",
@@ -304,7 +304,7 @@ const en = {
     "website": "Official Website",
     "webWallet": "Light wallet",
     "community": "Community",
-    "about": "About"
+    "about": "Bug Report"
   },
   ...enLocale
 

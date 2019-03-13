@@ -5,7 +5,7 @@
       <li class="b_li font14 fl"><a href="https://github.com/nuls-io" target="_blank">Github</a></li>
       <li class="b_li font14 fl capitalize"><a href="https://wallet.nuls.io/" target="_blank">{{$t('bottom.webWallet')}}</a></li>
       <li class="b_li font14 fl capitalize"><a href="https://nuls.community/" target="_blank">{{$t('bottom.community')}}</a></li>
-      <li class="b_li font14 fl capitalize">{{$t('bottom.about')}}</li>
+      <li class="b_li font14 fl capitalize click" @click="toBugReport">{{$t('bottom.about')}}</li>
       <li class="b_li font14 fr">Copyright @2019 NULS</li>
     </ul>
   </div>
@@ -13,6 +13,7 @@
 
 <script>
   //import {superLong, timesDecimals} from '@/api/util.js'
+  import {RUN_DEV} from '@/config'
   export default {
     created() {
       this.getBestBlockHeader();
@@ -58,7 +59,7 @@
        * 获取NULS数量信息
        */
       getNULSNumber() {
-        this.$post('/', 'getCoinInfo', [])
+        this.$post('/', '', [])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -66,6 +67,19 @@
             }
           })
       },
+
+      /**
+       *  问题反馈 跳转
+       **/
+      toBugReport() {
+        console.log(RUN_DEV);
+        if(RUN_DEV){
+          window.open('https://nuls.community/d/135-collect-the-bugs-of-the-mainnet-bugs', '_blank');
+        }else {
+          window.open('https://nuls.community/d/134-collect-the-bugs-of-the-testnet-bugs/2', '_blank');
+        }
+      },
+
     }
   }
 </script>
@@ -81,7 +95,7 @@
     z-index: 9898;
     .b_ul {
       .b_li {
-        color: @Acolor4;
+        color: #2C3856;
         line-height: 60px;
         width: auto;
         margin: 0 12px;

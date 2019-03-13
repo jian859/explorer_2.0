@@ -29,7 +29,9 @@
             <template slot-scope="scope">
               <span v-if="rotation === '1' " class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
               <span v-else>
-                <span v-show="scope.row.blockHeight === 0">--</span>
+                <span v-show="scope.row.blockHeight === 0">
+                  <i class="iconfont font20" :class="scope.row.yellow ? 'icon-huang yellow' : 'icon-hong fred' "></i>
+                </span>
                 <span v-show="scope.row.blockHeight !== 0" class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">
                   {{ scope.row.blockHeight === 0 ? '--': scope.row.blockHeight }}
                 </span>
@@ -41,7 +43,7 @@
           <el-table-column prop="txid" :label="$t('public.outNode')" min-width="180" align="left">
             <template slot-scope="scope">
               <label class="cursor-p" v-show="scope.row.seedPacked ">
-                {{scope.row.packingAddress }} <i class="el-icon-info gray" :title="$t('public.seedNode')"></i>
+                {{$t('public.seedNode')}}
               </label>
               <span class="cursor-p click" @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="!scope.row.seedPacked">
                 {{ scope.row.agentName}}
@@ -95,7 +97,7 @@
       getRotationInfo(rotation) {
         this.$post('/', 'getRoundInfo', [rotation])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.startTime = moment(getLocalTime( response.result.startTime)).format('YYYY-MM-DD HH:mm:ss');
               response.result.endTime = moment(getLocalTime( response.result.endTime)).format('YYYY-MM-DD HH:mm:ss');

@@ -20,7 +20,7 @@
         <el-table-column :label="$t('public.outNode')" min-width="180">
           <template slot-scope="scope">
             <label class="cursor-p" v-show="scope.row.seedPacked">
-              {{scope.row.packingAddress }} <i class="el-icon-info gray" :title="$t('public.seedNode')"></i>
+              {{$t('public.seedNode')}}
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
                   @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="!scope.row.seedPacked">
