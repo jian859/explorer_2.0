@@ -33,7 +33,13 @@ export default {
           //console.log(response);
           if (response.hasOwnProperty("result")) {
             sessionStorage.setItem("chainId",response.result.list[0])
+          }else {
+            sessionStorage.setItem("chainId","12345")
           }
+        })
+        .catch((error)=>{
+          console.log(error);
+          sessionStorage.setItem("chainId","12345")
         })
     }
   }
