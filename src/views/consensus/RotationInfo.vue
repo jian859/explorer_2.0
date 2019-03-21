@@ -35,7 +35,7 @@
                 <span v-show="scope.row.blockHeight === 0 && scope.row.newTime- scope.row.times >= 0">
                   <i class="iconfont font20" :class="scope.row.yellow ? 'icon-huang yellow' : 'icon-huang yellow' "></i>
                 </span>
-                <span v-show="scope.row.blockHeight !== 0" class="cursor-p click">
+                <span v-show="scope.row.blockHeight !== 0" class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">
                   {{ scope.row.blockHeight === 0 ? '--': scope.row.blockHeight }}
                 </span>
               </span>
@@ -103,11 +103,11 @@
       getRotationInfo(rotation) {
         this.$post('/', 'getRoundInfo', [rotation])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.startTime = moment(getLocalTime(response.result.startTime)).format('YYYY-MM-DD HH:mm:ss');
               response.result.endTime = moment(getLocalTime(response.result.endTime)).format('YYYY-MM-DD HH:mm:ss');
-              response.result.lostRate = Times(response.result.lostRate, 100).toString();
+              //response.result.lostRate = Times(response.result.lostRate, 100).toString();
               this.rotationInfo = response.result;
 
               for (let item of  response.result.itemList) {
