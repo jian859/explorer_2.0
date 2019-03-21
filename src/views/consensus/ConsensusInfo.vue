@@ -10,11 +10,11 @@
           </li>
           <li class="cards-li fl">
             <h6 class="font14">{{$t('consensusInfo.consensusInfo1')}}</h6>
-            <h5 class="font18 fW600 tc">{{nodeInfo.totalPackingCount}} 个</h5>
+            <h5 class="font18 fW600 tc">{{nodeInfo.totalPackingCount}}</h5>
           </li>
           <li class="cards-li fl">
             <h6 class="font14">{{$t('public.lostRate')}}</h6>
-            <h5 class="font18 fW600 tc">{{nodeInfo.lostRate}}%</h5>
+            <h5 class="font18 fW600 tc">{{nodeInfo.lostRate}}</h5>
           </li>
           <li class="cards-li fl">
             <h6 class="font14">{{$t('consensusInfo.consensusInfo2')}}</h6>

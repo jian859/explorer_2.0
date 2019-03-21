@@ -20,8 +20,8 @@
             <div class="font14 capitalize">{{$t('public.balance')}}</div>
             <div class="font18">{{addressInfo.totalBalance}} NULS</div>
             <ul class="chart_title">
-              <li><span></span>{{$t('public.consensusLocking')}}</li>
-              <li><span></span>{{$t('public.usablebalance')}}</li>
+              <li><span></span>{{$t('public.consensusLocking')}} {{addressInfo.totalLock}}</li>
+              <li><span></span>{{$t('public.usablebalance')}} {{addressInfo.balances}}</li>
               <!--<li><span></span>{{$t('public.timeLocking')}}</li>-->
             </ul>
           </div>
@@ -325,7 +325,7 @@
             if (response.hasOwnProperty("result")) {
               response.result.totalBalance = timesDecimals(response.result.totalBalance, 8);
               response.result.balances = timesDecimals(response.result.balance, 8);
-              response.result.totalLock = Plus(response.result.timeLock, response.result.consensusLock);
+              response.result.totalLock = Plus(response.result.timeLock, response.result.consensusLock).toString();
               response.result.totalLocks = timesDecimals(response.result.totalLock, 8);
               response.result.timeLock = timesDecimals(response.result.timeLock, 8);
               response.result.consensusLock = timesDecimals(response.result.consensusLock, 8);

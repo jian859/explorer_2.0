@@ -85,7 +85,7 @@
 
         <!--红黄牌-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type ===7 || txInfo.type ===8">
-          <p>{{$t('transactionInfo.transactionInfo5')}}
+          <p class="redcal">{{$t('transactionInfo.transactionInfo5')}}
             <span class="click" v-show="txInfo.type === 7" v-for="item in txInfo.txDataList" :key="item.address"
                   @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
             <span class="click" v-show="txInfo.type === 8" @click="toUrl('addressInfo',txInfo.txData.address)">{{txInfo.txData.address}}</span>
@@ -366,7 +366,7 @@
       /**
        * url 连接跳转
        * @param name
-       * @param height
+       * @param params
        */
       toUrl(name, params) {
         let newQuery = {};
@@ -453,6 +453,11 @@
         color: @Ncolour;
         line-height: 40px;
       }
+    }
+
+    .redcal{
+      height: 40px;
+      overflow-x: auto;
     }
 
     .t_mobile {
