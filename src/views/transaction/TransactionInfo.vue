@@ -153,7 +153,7 @@
     </div>
 
     <div class="w1200 token_list bg-white" v-if="tokenTransfers !==''">
-      <h3 class="tabs_title tabs_header capitalize">token transfers</h3>
+      <h3 class="tabs_title tabs_header capitalize">{{$t('transactionInfo.transactionInfo11')}}</h3>
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item in tokenTransfers" :key="item.fromAddress">
           <span class="click" @click="toUrl('addressInfo',item.fromAddress)">{{item.fromAddress}}</span>
@@ -432,7 +432,7 @@
       }
       .inputs, .outputs {
         width: 525px;
-        max-height: 200px;
+        max-height: 120px;
         margin: 10px 0 0 0;
         overflow-x: auto;
         li {
@@ -470,7 +470,7 @@
     }
 
     .token_list {
-      min-height: 100px;
+      min-height: 120px;
       margin: 30px auto 0;
     }
 

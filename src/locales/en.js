@@ -218,7 +218,8 @@ const en = {
     "transactionInfo7": "",
     "transactionInfo8": "Price",
     "transactionInfo9": "Function",
-    "transactionInfo10": "Unlock time"
+    "transactionInfo10": "Unlock time",
+    "transactionInfo11":"Token Transfers"
   },
 
   "consensus": {

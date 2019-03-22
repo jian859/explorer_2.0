@@ -218,7 +218,8 @@ const cn ={
     "transactionInfo7":"轮",
     "transactionInfo8":"价格",
     "transactionInfo9":"方法",
-    "transactionInfo10":"解锁时间"
+    "transactionInfo10":"解锁时间",
+    "transactionInfo11":"代币转账"
   },
 
   "consensus":{

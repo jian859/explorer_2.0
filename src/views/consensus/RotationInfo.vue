@@ -72,7 +72,7 @@
 
 <script>
   import moment from 'moment'
-  import {getLocalTime, timesDecimals, Times} from '@/api/util.js'
+  import {getLocalTime, timesDecimals} from '@/api/util.js'
 
   export default {
     data() {
