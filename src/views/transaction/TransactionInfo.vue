@@ -1,5 +1,5 @@
 <template>
-  <div class="t_info bg-gray">
+  <div class="t_info bg-gray" v-loading="txInfoLoading">
     <div class="bg-white">
       <h4 class="title font20 w1200">
         <span class="pc">{{txhash}}</span>
@@ -107,7 +107,7 @@
         <!--创建、调用合约-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
           <p>{{$t('public.contractAddress')}}
-            <span class="click" @click="toUrl('addressInfo',contractInfo.contractAddress)">
+            <span class="click" @click="toUrl('contractsInfo',contractInfo.contractAddress)">
               {{contractInfo.contractAddress}}
             </span>
           </p>
@@ -214,7 +214,8 @@
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
                 <label class="fr">
                   {{item.value}}
-                  <span class="fCN"> NULS<i class="iconfont yellow font12" :title="item.isShowInfo" :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
+                  <span class="fCN"> NULS<i class="iconfont yellow font12" :title="item.isShowInfo"
+                                            :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
                 </label>
               </li>
             </ul>
@@ -243,6 +244,8 @@
         txhash: this.$route.query.hash,
         txhashs: superLong(this.$route.query.hash, 20),
         txInfo: [],
+        //交易详情加载动画
+        txInfoLoading: true,
         activeName: 'second',
         inputNumber: 0,
         outNumber: 0,
@@ -350,6 +353,7 @@
               }
 
               this.txInfo = response.result;
+              this.txInfoLoading = false;
             }
           })
       },
@@ -376,6 +380,8 @@
           newQuery = {rotation: params};
         } else if (name === 'blockInfo') {
           newQuery = {height: params}
+        } else if (name === 'contractsInfo') {
+          newQuery = {contractAddress: params,tabName:'first'}
         } else {
           newQuery = {address: params};
         }
@@ -413,6 +419,17 @@
           font-size: 0.8rem;
           .click {
             margin-left: 1rem;
+          }
+        }
+      }
+    }
+    .info_tabs{
+      ul{
+        li{
+          &:nth-last-child(3) {
+            p{
+              border-bottom: 0;
+            }
           }
         }
       }
@@ -455,7 +472,7 @@
       }
     }
 
-    .redcal{
+    .redcal {
       height: 40px;
       overflow-x: auto;
     }
