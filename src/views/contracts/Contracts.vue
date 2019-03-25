@@ -12,7 +12,7 @@
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.contractAddress')" width="330" align="left">
+            <el-table-column :label="$t('public.contractAddress')" width="370" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
@@ -29,7 +29,7 @@
                 <span v-else>{{ scope.row.remark }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="status" :label="$t('public.status')" width="130" align="left">
+            <el-table-column prop="status" :label="$t('public.status')" width="120" align="left">
               <template slot-scope="scope">
                 <label v-if="isMobile">
                   {{$t('contractStatus.'+scope.row.status)}}
@@ -48,10 +48,10 @@
             <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="100" align="left">
               <template slot-scope="scope">{{ scope.row.balance/100000000 }}</template>
             </el-table-column>
-            <el-table-column prop="transferCount" :label="$t('public.transactionNo')" width="80"
+            <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="80"
                              align="left">
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.createTime')" width="180"
+            <el-table-column prop="createTime" :label="$t('public.createTime')" width="160"
                              align="left">
             </el-table-column>
           </el-table>
@@ -72,7 +72,7 @@
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
-            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="140"
+            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
                              align="left">
             </el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="140" align="left">
