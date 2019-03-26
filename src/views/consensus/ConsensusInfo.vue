@@ -300,7 +300,7 @@
        * 获取块列表
        */
       getBlockList(pager, rows, packAddress, boolean) {
-        this.$post('/', 'getBlockList', [pager, rows, packAddress, boolean])
+        this.$post('/', 'getBlockHeaderList', [pager, rows, boolean, packAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {

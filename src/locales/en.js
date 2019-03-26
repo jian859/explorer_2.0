@@ -101,6 +101,7 @@ const en = {
     "1011": "Call Contract",
     "102": "Del contract",
     "103": "Contract transfer",
+    "104":"Contract return",
     "1000": "Token"
   },
 
