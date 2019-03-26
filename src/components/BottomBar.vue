@@ -3,7 +3,7 @@
     <ul class="b_ul w1200">
       <li class="b_li font14 fl capitalize"><a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a></li>
       <li class="b_li font14 fl"><a href="https://github.com/nuls-io" target="_blank">Github</a></li>
-      <li class="b_li font14 fl capitalize"><a href="https://wallet.nuls.io/" target="_blank">{{$t('bottom.webWallet')}}</a></li>
+      <!--<li class="b_li font14 fl capitalize"><a href="https://wallet.nuls.io/" target="_blank">{{$t('bottom.webWallet')}}</a></li>-->
       <li class="b_li font14 fl capitalize"><a href="https://nuls.community/" target="_blank">{{$t('bottom.community')}}</a></li>
       <li class="b_li font14 fl capitalize">{{$t('bottom.about')}}</li>
       <li class="b_li font14 fr">Copyright @2019 NULS</li>
