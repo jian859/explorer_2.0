@@ -83,12 +83,22 @@
         //列表信息
         rotationList:[],
         rotationListOld:[],
+        //定时器
+        rotationInfoInterval: null,
       }
     },
     created() {
       this.getRotationInfo(this.rotation);
     },
     mounted() {
+      //10秒循环一次数据
+      this.rotationInfoInterval = setInterval(() => {
+        this.getRotationInfo(this.rotation);
+      }, 10000);
+    },
+    //离开当前页面后执行
+    destroyed() {
+      clearInterval(this.rotationInfoInterval);
     },
     methods: {
 

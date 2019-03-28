@@ -145,6 +145,9 @@
       this.getYearRateData(3);
       this.get14DaysData(0);
       this.getRotationList();
+
+    },
+    mounted() {
       //10秒循环一次数据
       this.homeSetInterval = setInterval(() => {
         this.getRotationList();
@@ -153,8 +156,6 @@
     //离开当前页面后执行
     destroyed() {
       clearInterval(this.homeSetInterval);
-    },
-    mounted() {
     },
     components: {
       CalcBar

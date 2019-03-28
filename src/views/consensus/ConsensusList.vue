@@ -114,7 +114,9 @@
           total: 0,
           page: 1,
           rows: 200,
-        }
+        },
+        //定时器
+        consensusListInterval: null,
       }
     },
     components: {
@@ -122,6 +124,16 @@
     },
     created() {
       this.getConsensusNodes(this.pager.page, this.pager.rows, this.nodeStatusRegion)
+    },
+    mounted() {
+      //10秒循环一次数据
+      this.consensusListInterval = setInterval(() => {
+        this.getConsensusNodes(this.pager.page, this.pager.rows, this.nodeStatusRegion)
+      }, 10000);
+    },
+    //离开当前页面后执行
+    destroyed() {
+      clearInterval(this.consensusListInterval);
     },
     computed: {
       //数据筛选

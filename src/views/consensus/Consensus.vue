@@ -143,7 +143,9 @@
           total: 0,
           page: 1,
           rows: 5,
-        }
+        },
+        //定时器
+        consensusInterval: null,
       }
     },
     components: {
@@ -151,12 +153,19 @@
       paging,
     },
     created() {
-
       this.getYearRateData(2);
       this.getRoundInfo();
       this.getRoundList(this.pager.page, this.pager.rows);
     },
     mounted() {
+
+      let that = this;
+      //10秒循环一次数据
+      this.consensusInterval = setInterval(() => {
+        that.getRoundInfo();
+        that.getRoundList(that.pager.page, that.pager.rows);
+      }, 10000);
+
       setInterval(() => {
         //流通量
         let newCirculateNumber = new BigNumber(timesDecimals(this.$store.state.NULSNumber.circulation, 11));
@@ -170,8 +179,11 @@
         this.node = this.$store.state.nodeNumber.agentCount;
       }, 100);
     },
+    //离开当前页面后执行
+    destroyed() {
+      clearInterval(this.consensusInterval);
+    },
     methods: {
-
       /**
        * 获取交易历史数据统计
        */

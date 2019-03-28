@@ -20,8 +20,8 @@
             <div class="font14 capitalize">{{$t('public.balance')}}</div>
             <div class="font18">{{addressInfo.totalBalance}} NULS</div>
             <ul class="chart_title">
-              <li><span></span>{{$t('public.consensusLocking')}}</li>
-              <li><span></span>{{$t('public.usablebalance')}}</li>
+              <li><span></span>{{$t('public.consensusLocking')}} {{addressInfo.totalLocks}}</li>
+              <li><span></span>{{$t('public.usablebalance')}} {{addressInfo.balances}}</li>
               <!--<li><span></span>{{$t('public.timeLocking')}}</li>-->
             </ul>
           </div>

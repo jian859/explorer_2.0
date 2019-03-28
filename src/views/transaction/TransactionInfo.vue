@@ -138,7 +138,7 @@
             </span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize tabs_infos_long">
+        <li class="tabs_infos fl tabs_infos_long">
           <p v-if="txInfo.remark && txInfo.remark.length > 50">{{$t('public.remarks')}}
             <el-tooltip class="calc fr" effect="light" :content="txInfo.remark" placement="top">
               <span class="scroll overflow">{{txInfo.remark}}</span>
@@ -438,7 +438,7 @@
           margin: 0 20px 0;
           line-height: 30px;
           label {
-            width: 150px;
+            width: 140px;
             text-align: right;
             .el-icon-goods {
               display: initial !important;

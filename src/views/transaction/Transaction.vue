@@ -102,7 +102,9 @@
           total: 0,
           page: 1,
           rows: 6,
-        }
+        },
+        //定时器
+        transactionInterval: null,
       }
     },
     components: {
@@ -113,7 +115,15 @@
       this.getYearRateData(this.timeRate);
       this.getTxList(this.pager.page, this.pager.rows,this.typeRegion, this.hideSwitch);
     },
-    mounted(){
+    mounted() {
+      //10秒循环一次数据
+      this.transactionInterval = setInterval(() => {
+        this.getTxList(this.pager.page, this.pager.rows,this.typeRegion, this.hideSwitch);
+      }, 10000);
+    },
+    //离开当前页面后执行
+    destroyed() {
+      clearInterval(this.transactionInterval);
     },
     methods: {
 

@@ -62,14 +62,26 @@
           total: 0,
           page: 1,
           rows: 15,
-        }
+        },
+        //定时器
+        balockInterval: null,
       }
     },
     components: {
       paging,
     },
     created() {
-      this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch)
+      this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch);
+    },
+    mounted() {
+      //10秒循环一次数据
+      this.homeSetInterval = setInterval(() => {
+        this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch);
+      }, 10000);
+    },
+    //离开当前页面后执行
+    destroyed() {
+      clearInterval(this.balockInterval);
     },
     methods: {
 
