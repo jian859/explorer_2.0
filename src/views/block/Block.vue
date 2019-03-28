@@ -13,7 +13,11 @@
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column :label="$t('public.height')" width="130">
-          <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+          <template slot-scope="scope">
+            <span class="cursor-p click"
+                  @click.exact="toUrl('blockInfo',scope.row.height)"
+                  @click.ctrl.exact="toUrl(true,'blockInfo',scope.row.height)"
+            >{{ scope.row.height }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="createTime" :label="$t('public.time')" width="230">
@@ -26,7 +30,9 @@
               {{scope.row.packingAddress }} <i class="el-icon-info gray" :title="$t('public.seedNode')"></i>
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="!scope.row.seedPacked">
+                  @click.exact="toUrl('consensusInfo',scope.row.agentHash)"
+                  @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.agentHash)"
+                  v-show="!scope.row.seedPacked">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
             </span>
           </template>
@@ -89,7 +95,7 @@
        * 获取块列表
        */
       getBlockList(pager, rows, packAddress, isShow) {
-        this.$post('/', 'getBlockHeaderList', [pager, rows,isShow, packAddress])
+        this.$post('/', 'getBlockHeaderList', [pager, rows, isShow, packAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -121,21 +127,31 @@
 
       /**
        * url 连接跳转
+       * * @param open
        * @param name
        * @param parmes
        */
-      toUrl(name, parmes) {
-        this.$router.push({
-          name: name,
-          query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
-        })
-      }
+      toUrl(open=false,name, parmes) {
+        if(open){
+          let routeData = this.$router.resolve({
+            name: name,
+            query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
+          });
+          window.open(routeData.href, '_blank');
+        }else {
+          this.$router.push({
+            name: name,
+            query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
+          });
+        }
+      },
     },
   }
 </script>
 
 <style lang="less">
   @import "./../../assets/css/style";
+
   .block {
     //height: 1000px;
     @media screen and (max-width: 1000px) {
@@ -148,7 +164,7 @@
         height: 5rem;
       }
     }
-    .tabs{
+    .tabs {
       margin-bottom: 100px;
     }
   }

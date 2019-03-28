@@ -14,7 +14,9 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" width="370" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                <span class="cursor-p click"
+                      @click.exact="toUrl(false,'contractsInfo',scope.row.contractAddress)"
+                      @click.ctrl.exact="toUrl(true,'contractsInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
                 </span>
               </template>
@@ -36,7 +38,7 @@
                 </label>
                 <label v-else>
                     <span class="cursor-p click" v-if="scope.row.status ===0"
-                          @click="toUrl('contractsInfo',scope.row.contractAddress,'second')">
+                          @click="toUrl(false,'contractsInfo',scope.row.contractAddress,'second')">
                     {{$t('contractStatus.'+scope.row.status)}}
                   </span>
                   <span v-if="scope.row.status !==0">
@@ -77,7 +79,9 @@
             </el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="140" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click"
+                      @click.exact="toUrl(false,'tokenInfo',scope.row.contractAddress)"
+                      @click.ctrl.exact="toUrl(true,'tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.symbol }}
                 </span>
               </template>
@@ -98,12 +102,14 @@
                 </label>
               </template>
             </el-table-column>
-            <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="180"
+            <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="160"
                              align="left">
             </el-table-column>
-            <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
+            <el-table-column :label="$t('public.contractAddress')" min-width="220" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click"
+                      @click.exact="toUrl(false,'tokenInfo',scope.row.contractAddress)"
+                      @click.ctrl.exact="toUrl(true,'tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
                 </span>
               </template>
@@ -234,21 +240,31 @@
 
       /**
        * url 连接跳转
+       * @param open
        * @param name
        * @param contractAddress
        * @param tabName
-       */
-      toUrl(name, contractAddress, tabName = 'first') {
+       **/
+      toUrl(open = false, name, contractAddress, tabName = 'first') {
         let newQuery = {};
         if (name === 'tokenInfo') {
           newQuery = {contractAddress: contractAddress}
         } else {
           newQuery = {contractAddress: contractAddress, tabName: tabName}
         }
-        this.$router.push({
-          name: name,
-          query: newQuery
-        })
+        if (open) {
+          let routeData = this.$router.resolve({
+            name: name,
+            query: newQuery
+          });
+          window.open(routeData.href, '_blank');
+        } else {
+          this.$router.push({
+            name: name,
+            query: newQuery
+          })
+        }
+
       }
     }
   }

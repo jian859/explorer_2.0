@@ -24,8 +24,11 @@
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column label="ID" min-width="150" align="left">
-          <template slot-scope="scope"><span class="cursor-p click uppercase"
-                                             @click="toUrl('consensusInfo',scope.row.txHash)">{{ scope.row.agentId }}</span>
+          <template slot-scope="scope">
+            <span class="cursor-p click uppercase"
+                  @click.exact="toUrl(false,'consensusInfo',scope.row.txHash)"
+                  @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.txHash)">
+              {{ scope.row.agentId }}</span>
           </template>
           <!--<template slot-scope="scope"><span class="uppercase">{{ scope.row.agentId }}</span></template>-->
         </el-table-column>
@@ -42,8 +45,11 @@
           <template slot-scope="scope">{{ scope.row.deposit }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.entrust')+'(NULS)'" width="150" align="left">
-          <template slot-scope="scope"><span class="cursor-p click uppercase"
-                                             @click="toUrl('consensusInfo',scope.row.txHash,'three')">{{ scope.row.totalDeposit}}</span>
+          <template slot-scope="scope">
+            <span class="cursor-p click uppercase"
+                  @click.exact="toUrl(false,'consensusInfo',scope.row.txHash,'three')"
+                  @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.txHash,'three')">
+              {{ scope.row.totalDeposit}}</span>
           </template>
           <!-- <template slot-scope="scope">{{ scope.row.totalDeposit/100000000 }}</template>-->
         </el-table-column>
@@ -54,8 +60,9 @@
     </div>
 
     <div v-show="viewList" class="card-info">
-      <div class="card fl click" @click="toUrl('consensusInfo',item.txHash)" v-for="item in searchData"
-           :key="item.agentId">
+      <div class="card fl click" v-for="item in searchData" :key="item.agentId"
+           @click.exact="toUrl(false,'consensusInfo',item.txHash)"
+           @click.ctrl.exact="toUrl(true,'consensusInfo',item.txHash)">
         <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
           {{ item.agentAlias ? item.agentAlias : item.agentId }}
           <i class="iconfont fr font18"
@@ -175,15 +182,24 @@
 
       /**
        * 路径跳转
+       * @param open
        * @param name
        * @param hash
        * @param tabName
        */
-      toUrl(name, hash, tabName = 'first') {
-        this.$router.push({
-          name: name,
-          query: {hash: hash, tabName: tabName}
-        })
+      toUrl(open = false, name, hash, tabName = 'first') {
+        if (open) {
+          let routeData = this.$router.resolve({
+            name: name,
+            query: {hash: hash, tabName: tabName}
+          });
+          window.open(routeData.href, '_blank');
+        } else {
+          this.$router.push({
+            name: name,
+            query: {hash: hash, tabName: tabName}
+          })
+        }
       },
 
       /**

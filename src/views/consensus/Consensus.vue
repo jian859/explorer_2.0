@@ -69,7 +69,11 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column :label="$t('public.round')" width="100" align="left">
-              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('rotationInfo',scope.row.index)">{{ scope.row.index }}</span>
+              <template slot-scope="scope">
+                <span class="cursor-p click"
+                      @click.exact="toUrl(false,'rotationInfo',scope.row.index)"
+                      @click.ctrl.exact="toUrl(true,'rotationInfo',scope.row.index)"
+                >{{ scope.row.index }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('consensus.consensus9')" min-width="280" align="left">
@@ -266,11 +270,26 @@
         this.getRoundList(this.pager.page, this.pager.rows)
       },
 
-      toUrl(name, parmes) {
-        this.$router.push({
-          name: name,
-          query: {rotation: parmes}
-        })
+      /**
+       * url 连接跳转
+       * @param open
+       * @param name
+       * @param parmes
+       */
+      toUrl(open=false,name, parmes) {
+        if(open){
+          let routeData = this.$router.resolve({
+            name: name,
+            query: {rotation: parmes}
+          });
+          window.open(routeData.href, '_blank');
+        }else {
+          this.$router.push({
+            name: name,
+            query: {rotation: parmes}
+          })
+        }
+
       }
 
     },
