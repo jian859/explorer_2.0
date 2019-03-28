@@ -15,7 +15,7 @@
         <el-table-column :label="$t('public.height')" width="130">
           <template slot-scope="scope">
             <span class="cursor-p click"
-                  @click.exact="toUrl('blockInfo',scope.row.height)"
+                  @click.exact="toUrl(false,'blockInfo',scope.row.height)"
                   @click.ctrl.exact="toUrl(true,'blockInfo',scope.row.height)"
             >{{ scope.row.height }}</span>
           </template>
@@ -30,7 +30,7 @@
               {{scope.row.packingAddress }} <i class="el-icon-info gray" :title="$t('public.seedNode')"></i>
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click.exact="toUrl('consensusInfo',scope.row.agentHash)"
+                  @click.exact="toUrl(false,'consensusInfo',scope.row.agentHash)"
                   @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.agentHash)"
                   v-show="!scope.row.seedPacked">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
