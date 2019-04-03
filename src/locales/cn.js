@@ -287,7 +287,7 @@ const cn ={
     "codeInfo9":"2.压缩包中的文件目录结构和代码需和部署时保持已一致，否则将导致认证不通过",
     "codeInfo10":"对不起，上传的文件不超过5M",
     "codeInfo11":"请求超时请重试",
-    "codeInfo12":"请输入正确的Address、Txhash、Block",
+    "codeInfo12":"对不起，什么都没查到",
     "codeInfo13":"3.zip包中不可包含非Java文件，否则将导致上传认证失败",
   },
 

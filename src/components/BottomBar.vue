@@ -15,9 +15,12 @@
   //import {superLong, timesDecimals} from '@/api/util.js'
   export default {
     created() {
-      this.getBestBlockHeader();
-      this.getNodeNumber();
-      this.getNULSNumber();
+      setTimeout(() => {
+        this.getBestBlockHeader();
+        this.getNodeNumber();
+        this.getNULSNumber();
+      }, 500);
+
       //10秒循环一次数据
       setInterval(() => {
         this.getBestBlockHeader();

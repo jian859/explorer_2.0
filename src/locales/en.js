@@ -287,7 +287,7 @@ const en = {
     "codeInfo9": "2.The file directory structure and code in the zip package need to be consistent with deployment code, or it will result in certificating failure",
     "codeInfo10": "Sorry, the maximum upload file size is 5M",
     "codeInfo11":"Request timeout please retry",
-    "codeInfo12":"Please enter the correct Address, Txhash, Block...",
+    "codeInfo12":"Sorry, I didn't find anything",
     "codeInfo13":"3.Zip packages should not contain non-Java files, otherwise upload authentication will fail",
   },
 

@@ -139,15 +139,18 @@
     },
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
-      //统计信息
-      this.getNodeNumber();
-      this.getNULSNumber();
-      this.getYearRateData(3);
-      this.get14DaysData(0);
-      this.getRotationList();
 
+      setTimeout(() => {
+        //统计信息
+        this.getNodeNumber();
+        this.getNULSNumber();
+        this.getYearRateData(3);
+        this.get14DaysData(0);
+        this.getRotationList();
+      }, 500);
     },
     mounted() {
+
       //10秒循环一次数据
       this.homeSetInterval = setInterval(() => {
         this.getRotationList();
@@ -167,12 +170,12 @@
       clickSearch() {
         this.$post('/', 'search', [this.homeSearch])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               if (response.result.type === 'block') {
                 this.$router.push({
                   name: 'blockInfo',
-                  query: {height: response.result.data.blockHeader.height}
+                  query: {height: response.result.data.header.height}
                 });
                 sessionStorage.setItem('navActive', 'block');
               } else if (response.result.type === 'tx') {
@@ -212,6 +215,9 @@
             if (response.hasOwnProperty("result")) {
               this.count.nodeNumber = response.result.consensusCount;
             }
+          })
+          .catch((error)=>{
+            console.log(error)
           })
       },
 
