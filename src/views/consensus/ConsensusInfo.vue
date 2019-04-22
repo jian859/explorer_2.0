@@ -1,5 +1,5 @@
 <template>
-  <div class="consensus-info bg-gray">
+  <div class="consensus-info bg-gray" v-loading="nodeInfoLoading">
     <div class="bg-white">
       <h2 class="title w1200 font16 fw uppercase">{{nodeInfo.agentId}}</h2>
       <div class="cards w1200">
@@ -209,6 +209,7 @@
         activeNames: this.$route.query.tabName || 'first',
         //节点信息
         nodeInfo: [],
+        nodeInfoLoading:true,
         times: {days: 0, hours: 0, minutes: 0},
         //出块列表
         blockList: [],
@@ -236,22 +237,18 @@
         }
       }
     },
-    components: {
-
-    },
+    components: {},
     created() {
       this.getNodeInfo(this.$route.query.hash);
+    },
+    mounted() {
       setTimeout(() => {
         if(this.activeNames ==='first'){
           this.getBlockList(this.pager.page, this.pager.rows, this.nodeInfo.packingAddress, false)
         }else {
           this.getConsensusDepositList(this.pager.page, this.pager.rows, this.nodeInfo.txHash)
         }
-      }, 500);
-
-    },
-    mounted() {
-
+      }, 800);
     },
     methods: {
 
@@ -269,6 +266,7 @@
               this.times = timeDifference(response.result.createTime);
               response.result.txHashs = superLong(response.result.txHash, 20);
               this.nodeInfo = response.result;
+              this.nodeInfoLoading = false;
             }
           }).catch((error) => {
           console.log(error)
