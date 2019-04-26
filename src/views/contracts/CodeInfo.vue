@@ -120,9 +120,10 @@
        * 调用认证方法
        **/
       async uploadFiles(contractsAddress, jobSpecFile) {
+        console.log(jobSpecFile);
         this.$post('/', 'validateContractCode', [contractsAddress, jobSpecFile])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.result) {
               this.ifCertified =true;
               this.getContractCodeTree(contractsAddress);
@@ -131,7 +132,7 @@
               this.certificationTimes = moment(getLocalTime(timestamp)).format('YYYY-MM-DD HH:mm:ss');
               this.uploadLoading = false;
             }else {
-              this.$message({message:this.$t('codeInfo.codeInfo5'), type: 'error', duration: 1500});
+              this.$message({message:this.$t('codeInfo.codeInfo5')+response.error.message, type: 'error', duration: 1500});
               this.uploadLoading = false;
             }
           }).catch((error) => {
