@@ -368,7 +368,7 @@
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
-                item.agentHashs = superLong(item.agentHash, 10)
+                item.agentHashs = superLong(item.txHash, 10)
               }
               this.consensusCancelDeposit = response.result.list;
               this.pager.total = response.result.totalCount;
