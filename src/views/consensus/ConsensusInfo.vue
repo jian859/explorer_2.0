@@ -273,7 +273,7 @@
       getNodeInfo(hash) {
         this.$post('/', 'getConsensusNode', [hash])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
               response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime)).format('YYYY-MM-DD HH:mm:ss');
