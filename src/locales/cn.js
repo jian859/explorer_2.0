@@ -253,6 +253,9 @@ const cn ={
     "consensusInfo11":"委托地址",
     "consensusInfo12":"委托时间",
     "consensusInfo13":"历史委托信息",
+    "consensusInfo14":"创建者奖励",
+    "consensusInfo15":"节点创建者奖励等于保证金奖励和收取委托人佣金的总和",
+    "consensusInfo16":"委托者总奖励",
   },
 
   "rotationInfo":{

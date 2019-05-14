@@ -253,6 +253,9 @@ const en = {
     "consensusInfo11": "Stake address",
     "consensusInfo12": "Stake time",
     "consensusInfo13": "Stake history",
+    "consensusInfo14":"Creator reward",
+    "consensusInfo15":"The node creator reward is equal to the sum of the deposit reward and the commission received from the staking",
+    "consensusInfo16":"Staking reward",
   },
 
   "rotationInfo": {
