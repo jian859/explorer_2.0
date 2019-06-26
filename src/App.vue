@@ -34,12 +34,12 @@ export default {
           if (response.hasOwnProperty("result")) {
             sessionStorage.setItem("chainId",response.result.list[0])
           }else {
-            sessionStorage.setItem("chainId","12345")
+            sessionStorage.setItem("chainId","2")
           }
         })
         .catch((error)=>{
           console.log(error);
-          sessionStorage.setItem("chainId","12345")
+          sessionStorage.setItem("chainId","2")
         })
     }
   }
