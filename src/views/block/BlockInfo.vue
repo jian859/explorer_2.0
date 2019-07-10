@@ -138,7 +138,7 @@
               response.result.reward= timesDecimals(response.result.reward, 8);
               response.result.totalFee= timesDecimals(response.result.totalFee, 8);
 
-              response.result.createTime = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               this.nodeInfo = response.result
             }
           }).catch((error) => {
@@ -155,7 +155,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.value = timesDecimals(item.value, 8);
                 item.hashs = superLong(item.hash, 20);
                 item.fee = timesDecimals(item.fee, 8);

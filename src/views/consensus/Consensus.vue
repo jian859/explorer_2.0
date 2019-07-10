@@ -252,8 +252,8 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.startTime = moment(getLocalTime(item.startTime)).format('YYYY-MM-DD HH:mm:ss');
-                item.endTime = moment(getLocalTime(item.endTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.startTime = moment(getLocalTime(item.startTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.endTime = moment(getLocalTime(item.endTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.roundList = response.result.list;
               this.pager.total = response.result.totalCount;

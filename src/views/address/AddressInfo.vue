@@ -406,7 +406,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 15);
                 item.values = timesDecimals(item.values, 8);
                 item.balance = timesDecimals(item.balance, 8);
@@ -437,7 +437,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.fromAddresss = superLong(item.fromAddress, 6);
                 item.toAddresss = superLong(item.toAddress, 6);
                 item.value = timesDecimals(item.value, item.decimals);

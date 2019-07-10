@@ -276,8 +276,8 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.time = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
-              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.time = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               this.times = timeDifference(response.result.createTime);
               response.result.txHashs = superLong(response.result.txHash, 20);
               this.nodeInfo = response.result;
@@ -305,7 +305,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txhashs = superLong(item.agentHash, 20);
               }
               this.blockList = response.result.list;
@@ -332,7 +332,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 20);
               }
               this.punishList = response.result.list;
@@ -357,7 +357,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.consensusDeposit = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -381,7 +381,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.agentHashs = superLong(item.txHash, 10)
               }
               this.consensusCancelDeposit = response.result.list;

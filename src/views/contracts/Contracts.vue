@@ -179,7 +179,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 if (this.activeName === 'nrc20Contract') {
                   item.totalSupply = timesDecimals(item.totalSupply, item.decimals);
                 }

@@ -287,7 +287,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.time = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.time = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
 
               response.result.fee = timesDecimals(response.result.fee, 8);
               response.result.value = timesDecimals(response.result.value, 8);
@@ -339,7 +339,7 @@
                   if (item.lockTime === 0) {
                     item.isShowInfo = ''
                   } else if (item.lockTime > 1000000000) {
-                    item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + moment(getLocalTime(item.lockTime)).format('YYYY-MM-DD HH:mm:ss');
+                    item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + moment(getLocalTime(item.lockTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                   } else {
                     const heightDiffer = (item.lockTime - this.$store.state.height) * 10;
                     const expectTime = moment(moment().add(heightDiffer, 'seconds')).format('YYYY-MM-DD HH:mm:ss');

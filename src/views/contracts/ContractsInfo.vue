@@ -173,9 +173,9 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.createTime = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               if (response.result.certificationTime) {
-                response.result.certificationTime = moment(getLocalTime(response.result.certificationTime)).format('YYYY-MM-DD HH:mm:ss');
+                response.result.certificationTime = moment(getLocalTime(response.result.certificationTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               } else {
                 response.result.certificationTime = 'null'
               }
@@ -204,7 +204,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 20);
               }
               this.contractsTxList = response.result.list;

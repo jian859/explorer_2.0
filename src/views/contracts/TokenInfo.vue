@@ -158,7 +158,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.createTime = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               response.result.totalSupply = timesDecimals(response.result.totalSupply, response.result.decimals);
               response.result.ownersCount = response.result.owners.length;
               this.contractsInfo = response.result;
@@ -177,7 +177,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 6);
                 item.value = timesDecimals(item.value, item.decimals);
               }
@@ -206,7 +206,7 @@
             if (response.hasOwnProperty("result")) {
               let totalSupply = parseInt(this.contractsInfo.totalSupply);
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.percentage = ((parseInt(item.balance) / totalSupply) * 100).toFixed(5) + '%'
               }

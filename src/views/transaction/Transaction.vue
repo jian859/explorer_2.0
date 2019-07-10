@@ -178,7 +178,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.hashs = superLong(item.hash, 20);
                 item.value = timesDecimals(item.value, 8);
                 item.fee = timesDecimals(item.fee, 8);
