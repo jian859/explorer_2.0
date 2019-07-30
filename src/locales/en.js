@@ -79,7 +79,10 @@ const en = {
     "output": "Output",
     "searchTip": "address/height/txhash/...",
     "copy": "Click copy",
-    "copysuccess": "Copy success"
+    "copysuccess": "Copy success",
+    "success":"Success",
+    "fail":"Fail",
+    "enforcement":"Contract Result"
   },
 
   "type": {
@@ -90,19 +93,17 @@ const en = {
     "3": "Aliased",
     "4": "Register node",
     "5": "Stake",
-    "51": "Change",
     "6": "Cancel consensus",
     "7": "Yellow card",
     "8": "Red card",
     "9": "Unregister node",
-    "10": "General Data'",
-    "100": "Create contract",
-    "101": "Call contract",
-    "1011": "Call Contract",
-    "102": "Del contract",
-    "103": "Contract transfer",
-    "104":"Contract return",
-    "1000": "Token"
+    "10": "Cross Trading",
+    "11": "Cross Register",
+    "15": "Contract creation",
+    "16": "Call contract",
+    "17": "Delete contract",
+    "18": "Contract transfer",
+    "19": "Contract return",
   },
 
   "addressType": {
@@ -219,7 +220,8 @@ const en = {
     "transactionInfo7": "",
     "transactionInfo8": "Price",
     "transactionInfo9": "Function",
-    "transactionInfo10": "Unlock time"
+    "transactionInfo10": "Unlock time",
+    "transactionInfo11":"Token Transfers"
   },
 
   "consensus": {
@@ -253,6 +255,9 @@ const en = {
     "consensusInfo11": "Stake address",
     "consensusInfo12": "Stake time",
     "consensusInfo13": "Stake history",
+    "consensusInfo14":"Creator reward",
+    "consensusInfo15":"The node creator reward is equal to the sum of the deposit reward and the commission received from the staking",
+    "consensusInfo16":"Staking reward",
   },
 
   "rotationInfo": {
@@ -287,7 +292,7 @@ const en = {
     "codeInfo9": "2.The file directory structure and code in the zip package need to be consistent with deployment code, or it will result in certificating failure",
     "codeInfo10": "Sorry, the maximum upload file size is 5M",
     "codeInfo11":"Request timeout please retry",
-    "codeInfo12":"Sorry, I didn't find anything",
+    "codeInfo12":"Please enter the correct Address, Txhash, Block...",
     "codeInfo13":"3.Zip packages should not contain non-Java files, otherwise upload authentication will fail",
   },
 
@@ -305,7 +310,7 @@ const en = {
     "website": "Official Website",
     "webWallet": "Light wallet",
     "community": "Community",
-    "about": "About"
+    "about": "Bug Report"
   },
   ...enLocale
 

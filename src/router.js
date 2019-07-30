@@ -7,7 +7,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: `/`,
       name: 'home',
       component: resolve => require(['@/views/Home.vue'], resolve)
     },

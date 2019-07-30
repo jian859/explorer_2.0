@@ -1,10 +1,5 @@
 # new-browser
 
-# Be careful
-
-Open the CDN import file in the public / index. HTML comment by running locally
-
-
 ## Project setup
 ```
 npm install

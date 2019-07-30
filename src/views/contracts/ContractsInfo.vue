@@ -30,11 +30,9 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane :label="$t('public.transactionList')" name="first">
             <SelectBar v-model="contractsTypeRegion" :typeOptions="contractsStatusOptions" typeName="type"
-                       @change="changeType">
-            </SelectBar>
+                       @change="changeType"></SelectBar>
             <el-table :data="contractsTxList" stripe border style="width: 100%;margin-top: 14px">
-              <el-table-column label="" width="30">
-              </el-table-column>
+              <el-table-column label="" width="30"></el-table-column>
               <el-table-column prop="height" :label="$t('public.height')" width="180" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
@@ -45,38 +43,32 @@
                   <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
-              </el-table-column>
+              <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
               <el-table-column prop="type" :label="$t('public.type')" width="180" align="left">
                 <template slot-scope="scope">{{$t('type.'+scope.row.type)}}</template>
               </el-table-column>
               <el-table-column :label="$t('public.fee')+'(NULS)'" width="180" align="left">
-                <template slot-scope="scope">{{scope.row.fee/100000000}}</template>
+                <template slot-scope="scope">{{scope.row.fee.value/100000000}}</template>
               </el-table-column>
             </el-table>
-            <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
-            </paging>
+            <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
 
           </el-tab-pane>
           <el-tab-pane v-if="!isMobile" :label="$t('contractsInfo.contractsInfo0')" name="second" :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <div v-if="activeName === 'second'">
-              <CodeInfo  :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus">
-              </CodeInfo>
+              <CodeInfo  :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('transactionInfo.transactionInfo9')" name="three">
             <el-table :data="modeList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30">
-              </el-table-column>
-              <el-table-column prop="name" label="Method" width="280" align="left">
-              </el-table-column>
+              <el-table-column label="" width="30"></el-table-column>
+              <el-table-column prop="name" label="Method" width="280" align="left"></el-table-column>
               <el-table-column prop="height" label="Parameter" min-width="280" align="left">
                 <template slot-scope="scope">
                   <span v-for="item in scope.row.params" :key="item">{{item}}-</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="returnType" label="Return Type" width="280" align="left">
-              </el-table-column>
+              <el-table-column prop="returnType" label="Return Type" width="280" align="left"></el-table-column>
             </el-table>
           </el-tab-pane>
         </el-tabs>
@@ -105,10 +97,10 @@
         //合约交易类型
         contractsStatusOptions: [
           {value: 0, label: '0'},
-          {value: 100, label: '100'},
-          {value: 101, label: '101'},
-          {value: 102, label: '102'},
-          {value: 103, label: '103'},
+          {value: 15, label: '15'},
+          {value: 16, label: '16'},
+          {value: 17, label: '17'},
+          {value: 18, label: '18'},
         ],
         contractsTypeRegion: 0,
         //合约交易列表
@@ -201,7 +193,7 @@
       async getConsensusTxList(page, rows, type, contractsAddress) {
         this.$post('/', 'getContractTxList', [page, rows, type, contractsAddress])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -224,6 +216,9 @@
 
       handleClick() {
         //console.log(tab, event);
+      },
+
+      getItemList() {
       },
 
       /**

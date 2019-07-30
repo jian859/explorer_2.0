@@ -35,8 +35,7 @@
 
       <h4 class=" font20 capitalize">{{$t('public.transactionList')}}</h4>
       <div class="select">
-        <SelectBar size="small" v-model="typeRegion" @change="changeType">
-        </SelectBar>
+        <SelectBar size="small" v-model="typeRegion" @change="changeType"></SelectBar>
       </div>
       <div class="info_table">
         <el-table :data="txList" stripe style="width: 100%" border>
@@ -46,8 +45,7 @@
             <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
-          </el-table-column>
+          <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
           <el-table-column :label="$t('public.type')" width="180" align="left">
             <template slot-scope="scope">{{ $t('type.'+scope.row.type) }}</template>
           </el-table-column>
@@ -55,13 +53,12 @@
             <template slot-scope="scope">{{scope.row.value}}</template>
           </el-table-column>
           <el-table-column :label="$t('public.fee')+'(NULS)'" width="180" align="left">
-            <template slot-scope="scope">{{scope.row.fee}}</template>
+            <template slot-scope="scope">{{scope.row.fees}}</template>
           </el-table-column>
         </el-table>
       </div>
 
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
-      </paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
     </div>
   </div>
 </template>
@@ -122,7 +119,7 @@
        **/
       copy(sting) {
         copys(sting);
-        this.$message({message: this.$t('public.copysuccess'), type: 'success', duration: 1000});
+        this.$message({message: '复制成功', type: 'success', duration: 1000});
       },
 
       /**
@@ -158,7 +155,7 @@
                 item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.value = timesDecimals(item.value, 8);
                 item.hashs = superLong(item.hash, 20);
-                item.fee = timesDecimals(item.fee, 8);
+                item.fees = timesDecimals(item.fee.value, 8);
               }
               this.txList = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -186,7 +183,7 @@
       /**
        * url 连接跳转
        * @param name
-       * @param parmes
+       * @param height
        */
       toUrl(name, parmes) {
         let newQuery = {};

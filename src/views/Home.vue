@@ -53,7 +53,7 @@
             <i @click="toCalc" class="iconfont icon-calculator_icon font18 cursor-p click"></i>
           </div>
         </div>
-        <ve-line style="top: -40px" height="100%" width="100%"
+        <ve-line style="top: -40px" height="100%"  width="100%"
                  :loading="yearChartLoading"
                  :data="yearChartData"
                  :legend-visible="false"
@@ -77,8 +77,7 @@
       </div>
     </div>
     <el-dialog title="" :visible.sync="calcDialog" :close-on-click-modal="false" center class="home_dialog">
-      <CalcBar>
-      </CalcBar>
+      <CalcBar></CalcBar>
     </el-dialog>
   </div>
 </template>
@@ -105,7 +104,7 @@
       };
 
       return {
-        isMobile: false,
+        isMobile:false,
         //搜索的内容
         homeSearch: '',
         height: 0,//当前高度
@@ -139,18 +138,12 @@
     },
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
-
-      setTimeout(() => {
-        //统计信息
-        this.getNodeNumber();
-        this.getNULSNumber();
-        this.getYearRateData(3);
-        this.get14DaysData(0);
-        this.getRotationList();
-      }, 500);
-    },
-    mounted() {
-
+      //统计信息
+      this.getNodeNumber();
+      this.getNULSNumber();
+      this.getYearRateData(3);
+      this.get14DaysData(0);
+      this.getRotationList();
       //10秒循环一次数据
       this.homeSetInterval = setInterval(() => {
         this.getRotationList();
@@ -160,22 +153,25 @@
     destroyed() {
       clearInterval(this.homeSetInterval);
     },
+    mounted() {
+    },
     components: {
       CalcBar
     },
     methods: {
+
       /**
        *  首页全局搜索框
        **/
       clickSearch() {
         this.$post('/', 'search', [this.homeSearch])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               if (response.result.type === 'block') {
                 this.$router.push({
                   name: 'blockInfo',
-                  query: {height: response.result.data.header.height}
+                  query: {height: response.result.data.txList[0].height}
                 });
                 sessionStorage.setItem('navActive', 'block');
               } else if (response.result.type === 'tx') {
@@ -215,9 +211,6 @@
             if (response.hasOwnProperty("result")) {
               this.count.nodeNumber = response.result.consensusCount;
             }
-          })
-          .catch((error)=>{
-            console.log(error)
           })
       },
 
@@ -451,60 +444,55 @@
       }
     }
 
-    .home_dialog {
-      .el-dialog {
+    .home_dialog{
+      .el-dialog{
         width: 745px;
       }
     }
 
     @media screen and (max-width: 1000px) {
-      .h_height {
+      .h_height{
         margin: 1.2rem 0;
       }
-
-      .search {
+      .search{
         width: 90%;
 
       }
-
-      .h_count {
+      .h_count{
         margin: 1rem auto 0;
-        ul {
+        ul{
           height: 5rem;
-          li {
+          li{
             height: 3rem;
             margin: 1rem 0 0 0;
-            p {
+            p{
               font-size: 0.7rem;
               line-height: 0.7rem;
             }
-            h5 {
+            h5{
               font-size: 0.8rem;
               line-height: 0.8rem;
             }
           }
         }
       }
-
-      .h_animation {
+      .h_animation{
         display: none;
       }
-
-      .h_chart {
+      .h_chart{
         height: auto;
         margin: 1.5rem 0;
         .h_chart_left, .h_chart_right {
-          width: 100%;
+           width: 100%;
           height: 15rem;
           float: none;
         }
 
       }
-
-      .home_dialog {
-        .el-dialog {
+      .home_dialog{
+        .el-dialog{
           width: 92%;
-          .el-dialog__body {
+          .el-dialog__body{
             padding: 1rem 0.5rem;
           }
         }

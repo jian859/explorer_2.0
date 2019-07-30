@@ -39,8 +39,6 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
             <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30">
-              </el-table-column>
               <el-table-column :label="$t('public.height')" width="80" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
@@ -52,7 +50,7 @@
                   <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('public.sender')" width="330" align="left">
+              <el-table-column :label="$t('public.sender')" width="360" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ scope.row.fromAddress }}</span>
                 </template>
@@ -60,15 +58,13 @@
               <!--<el-table-column prop="" label="" width="50" align="center">
                   <template>》88</template>
                 </el-table-column>-->
-              <el-table-column :label="$t('public.recipient')" width="330" align="left">
+              <el-table-column :label="$t('public.recipient')" width="360" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
                                                    @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddress }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" width="160" align="left">
-              </el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" width="120" align="left">
-              </el-table-column>
+              <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
+              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left"></el-table-column>
             </el-table>
 
             <div class="paging">
@@ -84,8 +80,7 @@
           </el-tab-pane>
           <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
             <el-table :data="accountTokensList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30">
-              </el-table-column>
+              <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('tokenInfo.tokenInfo4')" width="150" align="left">
                 <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
               </el-table-column>
@@ -94,10 +89,10 @@
                                                    @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="balance" :label="$t('tokenInfo.tokenInfo5')" width="250" align="left">
-              </el-table-column>
-              <el-table-column prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250" align="left">
-              </el-table-column>
+              <el-table-column prop="balance" :label="$t('tokenInfo.tokenInfo5')" width="250"
+                               align="left"></el-table-column>
+              <el-table-column prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250"
+                               align="left"></el-table-column>
             </el-table>
             <div class="paging">
               <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
@@ -206,7 +201,7 @@
             if (response.hasOwnProperty("result")) {
               let totalSupply = parseInt(this.contractsInfo.totalSupply);
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.percentage = ((parseInt(item.balance) / totalSupply) * 100).toFixed(5) + '%'
               }
@@ -224,6 +219,7 @@
       accountTokensListPage() {
         this.getAccountTokensList(this.pager.page, this.pager.rows, this.contractsAddress);
       },
+
 
       /**
        * tab 切换
@@ -244,7 +240,6 @@
        * url 连接跳转
        * @param name
        * @param parmes
-       * @param tabName
        */
       toUrl(name, parmes, tabName) {
         let newQuery = {};

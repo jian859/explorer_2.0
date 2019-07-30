@@ -5,8 +5,7 @@
         <img class="logo click" :src=logoSvg @click="toHome">
       </div>
       <div class="menu fl">
-        <MenuBar>
-        </MenuBar>
+        <MenuBar></MenuBar>
       </div>
 
       <div class="header_language fl">
@@ -36,30 +35,24 @@
     <el-collapse-transition>
       <div class="mobile_header fr" @click="hideMobileMenu" v-show="showMobile">
         <div class="mobile_menu">
-          <MenuBar>
-          </MenuBar>
+          <MenuBar></MenuBar>
           <div class="cb"></div>
           <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? '简体中文':'English' }}</div>
         </div>
       </div>
     </el-collapse-transition>
-
     <div class="cb"></div>
   </div>
-
-
 </template>
 
 <script>
-  import * as config from '../config.js'
-  import logo from './../assets/img/logo.svg'
-  import testnetLogo from './../assets/img/logo-beta.svg'
+  import logo from './../assets/img/logo-beta.svg'
   import MenuBar from '@/components/MenuBar';
 
   export default {
     data() {
       return {
-        logoSvg: config.RUN_DEV ? logo : testnetLogo,
+        logoSvg: logo,
         //默认选择菜单
         navActive: sessionStorage.hasOwnProperty('navActive') ? sessionStorage.getItem('navActive') : 'home',
         //统计信息
@@ -125,7 +118,7 @@
               if (response.result.type === 'block') {
                 this.$router.push({
                   name: 'blockInfo',
-                  query: {height: response.result.data.header.height}
+                  query: {height: response.result.data.txList[0].height}
                 })
               } else if (response.result.type === 'tx') {
                 this.$router.push({
@@ -154,8 +147,8 @@
         })
       },
 
-      hideMobileMenu(){
-        this.showMobile=false;
+      hideMobileMenu() {
+        this.showMobile = false;
       },
 
       /**

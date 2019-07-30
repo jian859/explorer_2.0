@@ -4,8 +4,7 @@
       <div class="w1200">
         <h2 class="title font24 fl capitalize">{{$t('block.block0')}}</h2>
         <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block2')"
-                   @change="hideOneList">
-        </el-switch>
+                   @change="hideOneList"></el-switch>
       </div>
     </div>
     <div class="tabs w1200">
@@ -13,38 +12,28 @@
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column :label="$t('public.height')" width="130">
-          <template slot-scope="scope">
-            <span class="cursor-p click"
-                  @click.exact="toUrl(false,'blockInfo',scope.row.height)"
-                  @click.ctrl.exact="toUrl(true,'blockInfo',scope.row.height)"
-            >{{ scope.row.height }}</span>
+          <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" :label="$t('public.time')" width="230">
-        </el-table-column>
-        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="150">
-        </el-table-column>
-        <el-table-column :label="$t('public.outNode')" min-width="180">
+        <el-table-column prop="createTime" :label="$t('public.time')" width="230"></el-table-column>
+        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="160"></el-table-column>
+        <el-table-column :label="$t('public.outNode')" min-width="185">
           <template slot-scope="scope">
-            <label class="cursor-p" v-show="scope.row.seedPacked">
-              {{scope.row.packingAddress }} <i class="el-icon-info gray" :title="$t('public.seedNode')"></i>
+            <label class="cursor-p" v-show="!scope.row.agentHash">
+              {{$t('public.seedNode')}}
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click.exact="toUrl(false,'consensusInfo',scope.row.agentHash)"
-                  @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.agentHash)"
-                  v-show="!scope.row.seedPacked">
+                  @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100">
-        </el-table-column>
+        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100"></el-table-column>
         <el-table-column :label="$t('public.blockReward')" width="180" align="center">
           <template slot-scope="scope">{{ scope.row.reward/100000000 }}</template>
         </el-table-column>
       </el-table>
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
-      </paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
     </div>
   </div>
 </template>
@@ -68,39 +57,27 @@
           total: 0,
           page: 1,
           rows: 15,
-        },
-        //定时器
-        balockInterval: null,
+        }
       }
     },
     components: {
       paging,
     },
     created() {
-      this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch);
-    },
-    mounted() {
-      //10秒循环一次数据
-      this.homeSetInterval = setInterval(() => {
-        this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch);
-      }, 10000);
-    },
-    //离开当前页面后执行
-    destroyed() {
-      clearInterval(this.balockInterval);
+      this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '')
     },
     methods: {
 
       /**
        * 获取块列表
        */
-      getBlockList(pager, rows, packAddress, isShow) {
+      getBlockList(pager, rows, isShow, packAddress) {
         this.$post('/', 'getBlockHeaderList', [pager, rows, isShow, packAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.blockList = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -114,7 +91,7 @@
        **/
       pagesList() {
         this.blockLoading = true;
-        this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch)
+        this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '')
       },
 
       /**
@@ -122,29 +99,29 @@
        **/
       hideOneList() {
         this.blockLoading = true;
-        this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch);
+        this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '');
       },
 
       /**
        * url 连接跳转
-       * * @param open
        * @param name
        * @param parmes
        */
-      toUrl(open=false,name, parmes) {
-        if(open){
-          let routeData = this.$router.resolve({
-            name: name,
-            query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
-          });
-          window.open(routeData.href, '_blank');
-        }else {
-          this.$router.push({
-            name: name,
-            query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
-          });
+      toUrl(name, parmes) {
+        let newQuery = {};
+        console.log(name);
+        if (name === 'consensusInfo') {
+          newQuery = {hash: parmes};
+          console.log(newQuery)
+        } else {
+          newQuery = {height: parmes}
         }
-      },
+        this.$router.push({
+          name: name,
+          query: newQuery
+        })
+
+      }
     },
   }
 </script>

@@ -3,18 +3,15 @@
     <div class="c_list_search">
       <div class="type_select fl">
         <SelectBar v-model="nodeTypeRegion" :typeOptions="nodeTypeOptions" typeName="nodeType"
-                   @change="changeNodeType">
-        </SelectBar>
+                   @change="changeNodeType"></SelectBar>
       </div>
       <div class="status_select fl">
         <SelectBar v-model="nodeStatusRegion" :typeOptions="nodeStatusOptions" typeName="nodeStatus"
-                   @change="changeNodeStatus">
-        </SelectBar>
+                   @change="changeNodeStatus"></SelectBar>
       </div>
       <div class="search_input">
         <el-input v-model="searchValue" class="search" :placeholder="$t('consensus.search')"
-                  suffix-icon="el-icon-search">
-        </el-input>
+                  suffix-icon="el-icon-search"></el-input>
         <i class="iconfont fr click" :class="viewList ? 'icon-list_icon':'icon-chart_icon'"
            @click="viewList = !viewList"></i>
       </div>
@@ -24,11 +21,8 @@
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column label="ID" min-width="150" align="left">
-          <template slot-scope="scope">
-            <span class="cursor-p click uppercase"
-                  @click.exact="toUrl(false,'consensusInfo',scope.row.txHash)"
-                  @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.txHash)">
-              {{ scope.row.agentId }}</span>
+          <template slot-scope="scope"><span class="cursor-p click uppercase"
+                                             @click="toUrl('consensusInfo',scope.row.txHash)">{{ scope.row.agentId }}</span>
           </template>
           <!--<template slot-scope="scope"><span class="uppercase">{{ scope.row.agentId }}</span></template>-->
         </el-table-column>
@@ -36,8 +30,7 @@
           <template slot-scope="scope"><span>{{ scope.row.agentAlias ? scope.row.agentAlias : '-' }}</span></template>
         </el-table-column>
         <el-table-column prop="creditValue" :label="$t('public.creditValue')" width="150"
-                         align="left">
-        </el-table-column>
+                         align="left"></el-table-column>
         <el-table-column :label="$t('public.proportion')" width="100" align="left">
           <template slot-scope="scope">{{ scope.row.commissionRate }}%</template>
         </el-table-column>
@@ -45,24 +38,19 @@
           <template slot-scope="scope">{{ scope.row.deposit }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.entrust')+'(NULS)'" width="150" align="left">
-          <template slot-scope="scope">
-            <span class="cursor-p click uppercase"
-                  @click.exact="toUrl(false,'consensusInfo',scope.row.txHash,'three')"
-                  @click.ctrl.exact="toUrl(true,'consensusInfo',scope.row.txHash,'three')">
-              {{ scope.row.totalDeposit}}</span>
+          <template slot-scope="scope"><span class="cursor-p click uppercase"
+                                             @click="toUrl('consensusInfo',scope.row.txHash,'three')">{{ scope.row.totalDeposit}}</span>
           </template>
           <!-- <template slot-scope="scope">{{ scope.row.totalDeposit/100000000 }}</template>-->
         </el-table-column>
         <el-table-column prop="depositCount" :label="$t('public.participants')" width="150"
-                         align="left">
-        </el-table-column>
+                         align="left"></el-table-column>
       </el-table>
     </div>
 
     <div v-show="viewList" class="card-info">
-      <div class="card fl click" v-for="item in searchData" :key="item.agentId"
-           @click.exact="toUrl(false,'consensusInfo',item.txHash)"
-           @click.ctrl.exact="toUrl(true,'consensusInfo',item.txHash)">
+      <div class="card fl click" @click="toUrl('consensusInfo',item.txHash)" v-for="item in searchData"
+           :key="item.agentId">
         <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
           {{ item.agentAlias ? item.agentAlias : item.agentId }}
           <i class="iconfont fr font18"
@@ -121,9 +109,7 @@
           total: 0,
           page: 1,
           rows: 200,
-        },
-        //定时器
-        consensusListInterval: null,
+        }
       }
     },
     components: {
@@ -131,16 +117,6 @@
     },
     created() {
       this.getConsensusNodes(this.pager.page, this.pager.rows, this.nodeStatusRegion)
-    },
-    mounted() {
-      //10秒循环一次数据
-      this.consensusListInterval = setInterval(() => {
-        this.getConsensusNodes(this.pager.page, this.pager.rows, this.nodeStatusRegion)
-      }, 10000);
-    },
-    //离开当前页面后执行
-    destroyed() {
-      clearInterval(this.consensusListInterval);
     },
     computed: {
       //数据筛选
@@ -182,24 +158,15 @@
 
       /**
        * 路径跳转
-       * @param open
        * @param name
        * @param hash
        * @param tabName
        */
-      toUrl(open = false, name, hash, tabName = 'first') {
-        if (open) {
-          let routeData = this.$router.resolve({
-            name: name,
-            query: {hash: hash, tabName: tabName}
-          });
-          window.open(routeData.href, '_blank');
-        } else {
-          this.$router.push({
-            name: name,
-            query: {hash: hash, tabName: tabName}
-          })
-        }
+      toUrl(name, hash, tabName = 'first') {
+        this.$router.push({
+          name: name,
+          query: {hash: hash, tabName: tabName}
+        })
       },
 
       /**

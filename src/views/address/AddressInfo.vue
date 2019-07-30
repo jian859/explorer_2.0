@@ -58,8 +58,7 @@
     <div class="bottoms w1200 cb">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
-          <SelectBar v-model="typeRegion" @change="changeType">
-          </SelectBar>
+          <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
           <!--<i class="iconfont icon-dwonload_gray_icon click ml_20" title="更多功能敬请期待..."></i>-->
           <el-switch class="hide-switch fr" v-model="hideSwitch" v-show="typeRegion.toString() === '0'"
                      :width="32"
@@ -70,23 +69,16 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column :label="$t('public.height')" width="100" align="left">
-              <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'blockInfo',scope.row.height)"
-                      @click.ctrl.exact="toUrl(true,'blockInfo',scope.row.height)"
-                >{{ scope.row.height }}</span>
+              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
             </el-table-column>
             <el-table-column label="TXID" min-width="250" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click"
-                      @click.exact="toUrl(false,'transactionInfo',scope.row.txHash)"
-                      @click.ctrl.exact="toUrl(true,'transactionInfo',scope.row.txHash)"
-                >{{ scope.row.txHashs }}</span>
+                      @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left">
-            </el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
             <el-table-column :label="$t('public.type')" width="150" align="left">
               <template slot-scope="scope">
                 <span>{{ $t('type.'+scope.row.type) }}</span>
@@ -99,7 +91,7 @@
               <template slot-scope="scope">{{ scope.row.balance }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')+'(NULS)'" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.fee }}</template>
+              <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
 
@@ -123,39 +115,26 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="height" :label="$t('public.height')" width="80" align="left">
-              <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'blockInfo',scope.row.height)"
-                      @click.ctrl.exact="toUrl(true,'blockInfo',scope.row.height)">
-                  {{ scope.row.height }}</span>
+              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
             </el-table-column>
             <el-table-column label="TXID" min-width="80" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click"
-                      @click.exact="toUrl(false,'transactionInfo',scope.row.txHash)"
-                      @click.ctrl.exact="toUrl(true,'transactionInfo',scope.row.txHash)">
-                  {{ scope.row.txHashs }}</span>
+                      @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.sender')" width="150" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'addressInfo',scope.row.fromAddress)"
-                      @click.ctrl.exact="toUrl(true,'addressInfo',scope.row.fromAddress)">
-                  {{ scope.row.fromAddresss }}</span>
+                <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ scope.row.fromAddresss }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.recipient')" width="150" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'addressInfo',scope.row.toAddress)"
-                      @click.ctrl.exact="toUrl(true,'addressInfo',scope.row.toAddress)">
-                  {{ scope.row.toAddresss }}</span>
+                <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddresss }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.time')" width="200" align="left">
-            </el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.time')" width="200" align="left"></el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
               <template slot-scope="scope">
                 <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
@@ -186,19 +165,15 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="220"
-                             align="left">
-            </el-table-column>
+                             align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="220" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl(false,'tokenInfo',scope.row.contractAddress)">{{ scope.row.tokenSymbol }}</span>
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">{{ scope.row.tokenSymbol }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click="toUrl('contractsInfo',scope.row.contractAddress)">
-
-                  {{ scope.row.contractAddress }}</span>
+                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="280" align="left">
@@ -350,7 +325,7 @@
             if (response.hasOwnProperty("result")) {
               response.result.totalBalance = timesDecimals(response.result.totalBalance, 8);
               response.result.balances = timesDecimals(response.result.balance, 8);
-              response.result.totalLock = Plus(response.result.timeLock, response.result.consensusLock);
+              response.result.totalLock = Plus(response.result.timeLock, response.result.consensusLock).toString();
               response.result.totalLocks = timesDecimals(response.result.totalLock, 8);
               response.result.timeLock = timesDecimals(response.result.timeLock, 8);
               response.result.consensusLock = timesDecimals(response.result.consensusLock, 8);
@@ -403,14 +378,14 @@
       getTxListByAddress(page, rows, address, type, boolean) {
         this.$post('/', 'getAccountTxs', [page, rows, address, type, boolean])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 15);
                 item.values = timesDecimals(item.values, 8);
                 item.balance = timesDecimals(item.balance, 8);
-                item.fee = timesDecimals(item.fee, 8);
+                item.fees = timesDecimals(item.fee.value, 8);
               }
               this.txList = response.result.list;
               this.txListPager.total = response.result.totalCount;
@@ -497,11 +472,10 @@
 
       /**
        * url 连接跳转
-       * @param open
        * @param name
        * @param parmes
        */
-      toUrl(open = false, name, parmes) {
+      toUrl(name, parmes) {
         let newParmes = {};
         if (name === 'addressInfo') {
           this.address = parmes;
@@ -516,19 +490,11 @@
         else {
           newParmes = {hash: parmes}
         }
+        this.$router.push({
+          name: name,
+          query: newParmes
+        })
 
-        if (open) {
-          let routeData = this.$router.resolve({
-            name: name,
-            query: newParmes
-          });
-          window.open(routeData.href, '_blank');
-        } else {
-          this.$router.push({
-            name: name,
-            query: newParmes
-          })
-        }
       },
 
       /**

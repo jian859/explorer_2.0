@@ -15,8 +15,7 @@
             <i class="el-icon-download fr click"></i>
           </div>
           <div class="code-trees">
-            <el-tree :data="codeTress" :props="defaultProps" @node-click="handleNodeClick" :default-expand-all="true">
-            </el-tree>
+            <el-tree :data="codeTress" :props="defaultProps" @node-click="handleNodeClick" :default-expand-all="true"></el-tree>
           </div>
         </div>
         <div class="code-source fl">
@@ -132,7 +131,7 @@
               this.certificationTimes = moment(getLocalTime(timestamp)).format('YYYY-MM-DD HH:mm:ss');
               this.uploadLoading = false;
             }else {
-              this.$message({message:this.$t('codeInfo.codeInfo5'), type: 'error', duration: 1500});
+              this.$message({message:this.$t('codeInfo.codeInfo5')+response.error.message, type: 'error', duration: 1500});
               this.uploadLoading = false;
             }
           }).catch((error) => {

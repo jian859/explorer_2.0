@@ -20,44 +20,35 @@
     <div class="caleFrom partake" v-show="radio.toString() === '1' ">
       <el-form :model="partakeForm" :rules="partakeRules" ref="partakeForm">
         <el-form-item :label="$t('public.entrust')" prop="entrust">
-          <el-input v-model="partakeForm.entrust">
-          </el-input>
+          <el-input v-model="partakeForm.entrust"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.proportion')+'(%)'" prop="ratio">
-          <el-input v-model="partakeForm.ratio">
-          </el-input>
+          <el-input v-model="partakeForm.ratio"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.creditValue')" prop="credit">
-          <el-input v-model="partakeForm.credit">
-          </el-input>
+          <el-input v-model="partakeForm.credit"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.allEntrust')" prop="allEntrust">
-          <el-input v-model="partakeForm.allEntrust">
-          </el-input>
+          <el-input v-model="partakeForm.allEntrust"></el-input>
         </el-form-item>
       </el-form>
     </div>
     <div class="caleFrom partake" v-show="radio.toString() === '2' ">
       <el-form :model="newNodeFrom" :rules="newNodeRules" ref="newNodeFrom">
         <el-form-item :label="$t('public.bond')" prop="newEnsure">
-          <el-input v-model="newNodeFrom.newEnsure">
-          </el-input>
+          <el-input v-model="newNodeFrom.newEnsure"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.proportion') +'(%)'" prop="newRadio">
-          <el-input v-model="newNodeFrom.newRadio">
-          </el-input>
+          <el-input v-model="newNodeFrom.newRadio"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.creditValue')" prop="newCredit">
-          <el-input v-model="newNodeFrom.newCredit">
-          </el-input>
+          <el-input v-model="newNodeFrom.newCredit"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.allEntrust')" prop="newAllEntrust">
-          <el-input v-model="newNodeFrom.newAllEntrust">
-          </el-input>
+          <el-input v-model="newNodeFrom.newAllEntrust"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.entrust')" prop="newEntrust">
-          <el-input v-model="newNodeFrom.newEntrust">
-          </el-input>
+          <el-input v-model="newNodeFrom.newEntrust"></el-input>
         </el-form-item>
       </el-form>
     </div>

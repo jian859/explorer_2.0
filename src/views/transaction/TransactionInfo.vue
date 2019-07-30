@@ -1,5 +1,5 @@
 <template>
-  <div class="t_info bg-gray">
+  <div class="t_info bg-gray" v-loading="txInfoLoading">
     <div class="bg-white">
       <h4 class="title font20 w1200">
         <span class="pc">{{txhash}}</span>
@@ -17,12 +17,12 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{$t('public.fee')}}
-            <span v-if="contractInfo.length === 0">{{txInfo.fee}}<span class="fCN">&nbsp;NULS</span></span>
+            <span v-if="contractInfo.length === 0">{{txInfo.fees}}<span class="fCN">&nbsp;NULS</span></span>
             <span v-if="contractInfo.length !== 0">
             {{contractInfo.totalFee}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
                          +contractInfo.txSizeFee+'('+$t('transactionInfo.transactionInfo1')+')'+'+'
-                         +contractInfo.actualContractFee+'('+$t('type.101')+')'+'+'
+                         +contractInfo.actualContractFee+'('+$t('type.16')+')'+'+'
                          +contractInfo.refundFee+'('+$t('transactionInfo.transactionInfo2')+')'"
                          class="item" effect="dark" placement="top">
              <i class="el-icon-info gray"></i>
@@ -85,7 +85,7 @@
 
         <!--红黄牌-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type ===7 || txInfo.type ===8">
-          <p>{{$t('transactionInfo.transactionInfo5')}}
+          <p class="redcal">{{$t('transactionInfo.transactionInfo5')}}
             <span class="click" v-show="txInfo.type === 7" v-for="item in txInfo.txDataList" :key="item.address"
                   @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
             <span class="click" v-show="txInfo.type === 8" @click="toUrl('addressInfo',txInfo.txData.address)">{{txInfo.txData.address}}</span>
@@ -105,30 +105,42 @@
         </li>
 
         <!--创建、调用合约-->
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>{{$t('public.contractAddress')}}
-            <span class="click" @click="toUrl('addressInfo',contractInfo.contractAddress)">
+            <span class="click" @click="toUrl('contractsInfo',contractInfo.contractAddress)">
               {{contractInfo.contractAddress}}
             </span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>GasLimit
             <span>{{contractInfo.gasLimit}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>{{$t('transactionInfo.transactionInfo8')}}
             <span>{{contractInfo.price}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>GasUsed
             <span>{{contractInfo.gasUsed}}</span>
           </p>
         </li>
+
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+          <p>{{$t('public.enforcement')}}
+            <span>{{contractInfo.success ? $t('public.success') : $t('public.fail')}}</span>
+            <font v-show="!contractInfo.success">({{contractInfo.errorMessage}})</font>
+          </p>
+        </li>
         <!--调用合约-->
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===101">
+        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===16">
           <p>{{$t('transactionInfo.transactionInfo9')}}
             <span>
               {{txInfo.txData.methodName}}
@@ -138,7 +150,7 @@
             </span>
           </p>
         </li>
-        <li class="tabs_infos fl tabs_infos_long">
+        <li class="tabs_infos fl capitalize tabs_infos_long">
           <p v-if="txInfo.remark && txInfo.remark.length > 50">{{$t('public.remarks')}}
             <el-tooltip class="calc fr" effect="light" :content="txInfo.remark" placement="top">
               <span class="scroll overflow">{{txInfo.remark}}</span>
@@ -148,12 +160,13 @@
             <span class="scroll overflow">{{txInfo.remark}}</span>
           </p>
         </li>
+        <li></li>
         <p class="cb"></p>
       </ul>
     </div>
 
     <div class="w1200 token_list bg-white" v-if="tokenTransfers !==''">
-      <h3 class="tabs_title tabs_header capitalize">token transfers</h3>
+      <h3 class="tabs_title tabs_header capitalize">{{$t('transactionInfo.transactionInfo11')}}</h3>
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item in tokenTransfers" :key="item.fromAddress">
           <span class="click" @click="toUrl('addressInfo',item.fromAddress)">{{item.fromAddress}}</span>
@@ -175,7 +188,7 @@
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
-          <label class="fr">{{item.amount}}<span class="fCN"> NULS</span></label>
+          <label class="fr">{{item.value}}<span class="fCN"> NULS</span></label>
         </li>
       </ul>
       <div class="arrow fl">
@@ -185,7 +198,7 @@
         <li class="font14" v-for="item in txInfo.coinTos" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
           <label class="fr">
-            {{item.amount}}
+            {{item.value}}
             <span class="fCN"> NULS
               <i class="iconfont yellow font12" :title="item.isShowInfo"
                  :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i>
@@ -200,9 +213,9 @@
         <el-tab-pane :label="$t('public.input')" name="first">
           <div>
             <ul class="inputs scroll">
-              <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
+              <li class="font14" v-for="item in txInfo.froms" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
-                <label class="fr">{{item.amount}}<span class="fCN"> NULS</span></label>
+                <label class="fr">{{item.value}}<span class="fCN"> NULS</span></label>
               </li>
             </ul>
           </div>
@@ -210,11 +223,12 @@
         <el-tab-pane :label="$t('public.output')" name="second">
           <div>
             <ul class="outputs scroll">
-              <li class="font14" v-for="item in txInfo.coinTos" :key="item.assetsId">
+              <li class="font14" v-for="item in txInfo.tos" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
                 <label class="fr">
-                  {{item.amount}}
-                  <span class="fCN"> NULS<i class="iconfont yellow font12" :title="item.isShowInfo" :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
+                  {{item.value}}
+                  <span class="fCN"> NULS<i class="iconfont yellow font12" :title="item.isShowInfo"
+                                            :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
                 </label>
               </li>
             </ul>
@@ -224,10 +238,19 @@
     </div>
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
-      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"></i>
+      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)" v-show="!isContracts"></i>
       </div>
       <div class="dialog-info scroll">
-        {{txInfo.txDataHex}}
+        <div v-show="!isContracts">{{txInfo.txDataHex}}</div>
+        <div v-show="isContracts">
+          <json-viewer
+                  :value="txInfo.txData"
+                  :expand-depth="5"
+                  copyable
+                  boxed
+                  sort
+          ></json-viewer>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -243,6 +266,8 @@
         txhash: this.$route.query.hash,
         txhashs: superLong(this.$route.query.hash, 20),
         txInfo: [],
+        //交易详情加载动画
+        txInfoLoading: true,
         activeName: 'second',
         inputNumber: 0,
         outNumber: 0,
@@ -255,6 +280,7 @@
         tokenTransfers: '',
         //txhash定时器
         txhashInterval: null,
+        isContracts:false,//是否为合约交易
       };
     },
     created() {
@@ -287,9 +313,9 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.time = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
 
-              response.result.fee = timesDecimals(response.result.fee, 8);
+              response.result.fees = timesDecimals(response.result.fee.value, 8);
               response.result.value = timesDecimals(response.result.value, 8);
 
               //黄牌
@@ -308,7 +334,8 @@
               }
 
               //创建、调用合约
-              if (response.result.type === 100 || response.result.type === 101) {
+              if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18 || response.result.type === 19) {
+                this.isContracts = true;
                 response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
                 response.result.txData.resultInfo.txSizeFee = timesDecimals(response.result.txData.resultInfo.txSizeFee, 8);
                 response.result.txData.resultInfo.actualContractFee = timesDecimals(response.result.txData.resultInfo.actualContractFee, 8);
@@ -325,7 +352,7 @@
 
               if (response.result.coinFroms) {
                 for (let item of response.result.coinFroms) {
-                  item.amount = timesDecimals(item.amount, 8);
+                  item.value = timesDecimals(item.amount, 8);
                   item.addresss = superLong(item.address, 10);
                 }
                 this.inputNumber = response.result.coinFroms.length;
@@ -333,13 +360,13 @@
 
               if (response.result.coinTos) {
                 for (let item of response.result.coinTos) {
-                  item.amount = timesDecimals(item.amount, 8);
+                  item.value = timesDecimals(item.amount, 8);
                   item.addresss = superLong(item.address, 10);
                   //根据lockTime字段长度判断是高度锁定还时间锁定
                   if (item.lockTime === 0) {
                     item.isShowInfo = ''
                   } else if (item.lockTime > 1000000000) {
-                    item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + moment(getLocalTime(item.lockTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                    item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + moment(getLocalTime(item.lockTime)).format('YYYY-MM-DD HH:mm:ss');
                   } else {
                     const heightDiffer = (item.lockTime - this.$store.state.height) * 10;
                     const expectTime = moment(moment().add(heightDiffer, 'seconds')).format('YYYY-MM-DD HH:mm:ss');
@@ -348,7 +375,9 @@
                 }
                 this.outNumber = response.result.coinTos.length;
               }
+
               this.txInfo = response.result;
+              this.txInfoLoading = false;
             }
           })
       },
@@ -375,6 +404,8 @@
           newQuery = {rotation: params};
         } else if (name === 'blockInfo') {
           newQuery = {height: params}
+        } else if (name === 'contractsInfo') {
+          newQuery = {contractAddress: params, tabName: 'first'}
         } else {
           newQuery = {address: params};
         }
@@ -416,6 +447,17 @@
         }
       }
     }
+    .info_tabs {
+      ul {
+        li {
+          &:nth-last-child(3) {
+            p {
+              border-bottom: 0;
+            }
+          }
+        }
+      }
+    }
 
     .t_basics, .token_list {
       //background-color: @bg-white;
@@ -431,14 +473,14 @@
       }
       .inputs, .outputs {
         width: 525px;
-        max-height: 200px;
+        max-height: 120px;
         margin: 10px 0 0 0;
         overflow-x: auto;
         li {
           margin: 0 20px 0;
           line-height: 30px;
           label {
-            width: 140px;
+            width: 147px;
             text-align: right;
             .el-icon-goods {
               display: initial !important;
@@ -454,6 +496,11 @@
       }
     }
 
+    .redcal {
+      height: 40px;
+      overflow-x: auto;
+    }
+
     .t_mobile {
       display: none;
       @media screen and (max-width: 1000px) {
@@ -464,13 +511,13 @@
     }
 
     .token_list {
-      min-height: 100px;
+      min-height: 120px;
       margin: 30px auto 0;
     }
 
     .dialog_tran {
       .el-dialog {
-        width: 500px;
+        width: 50rem;
         @media screen and (max-width: 1000px) {
           width: 70%;
         }

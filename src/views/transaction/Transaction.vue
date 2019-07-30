@@ -4,19 +4,11 @@
       <div class="chart_title">
         <h2 class="fl font18 capitalize">{{$t('transaction.transaction0')}}</h2>
         <div class="fr">
-          <div class="font16"><span class="font12 capitalize">{{$t('transaction.transaction1')}}:</span>
-            {{this.txListTotal}}
-          </div>
+          <div class="font16"><span class="font12 capitalize">{{$t('transaction.transaction1')}}:</span> {{this.txListTotal}}</div>
           <div class="chart_bt">
-            <el-button type="text" class="btn capitalize" @click="changeDate(1)" :class="timeRate === 1 ? 'btn_N':''">
-              {{$t('public.week')}}
-            </el-button>
-            <el-button type="text" class="btn capitalize" @click="changeDate(2)" :class="timeRate === 2 ? 'btn_N':''">
-              {{$t('public.month')}}
-            </el-button>
-            <el-button type="text" class="btn capitalize" @click="changeDate(3)" :class="timeRate === 3 ? 'btn_N':''">
-              {{$t('public.year')}}
-            </el-button>
+            <el-button type="text" class="btn capitalize" @click="changeDate(1)" :class="timeRate === 1 ? 'btn_N':''">{{$t('public.week')}}</el-button>
+            <el-button type="text" class="btn capitalize" @click="changeDate(2)" :class="timeRate === 2 ? 'btn_N':''">{{$t('public.month')}}</el-button>
+            <el-button type="text" class="btn capitalize" @click="changeDate(3)" :class="timeRate === 3 ? 'btn_N':''">{{$t('public.year')}}</el-button>
           </div>
         </div>
       </div>
@@ -26,40 +18,28 @@
                  :legend-visible="false"
                  :colors="colors"
                  :settings="chartSettings"
-                 :loading="timeRateDataLoading">
-        </ve-line>
+                 :loading="timeRateDataLoading"></ve-line>
       </div>
     </div>
     <div class="info bg-gray">
       <div class="w1200">
         <h2 class="title font18 capitalize">{{$t('public.transactionList')}}</h2>
         <div class="tabs w1200">
-          <SelectBar size="small" v-model="typeRegion" @change="changeType">
-          </SelectBar>
+          <SelectBar size="small" v-model="typeRegion" @change="changeType"></SelectBar>
           <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block1')"
-                     v-show="typeRegion=== 0" @change="hideConsensusList">
-          </el-switch>
+                     v-show="typeRegion=== 0" @change="hideConsensusList"></el-switch>
           <el-table :data="txList" style="width: 100%;" stripe border v-loading="txListLoading">
             <el-table-column width="30" align="left">
             </el-table-column>
             <el-table-column :label="$t('public.height')" width="90" align="left">
-              <template slot-scope="scope">
-                <span class="click"
-                      @click.exact="toUrl(false,'blockInfo',scope.row.height)"
-                      @click.ctrl.exact="toUrl(true,'blockInfo',scope.row.height)"
-                >{{ scope.row.height }}</span>
+              <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
             </el-table-column>
             <el-table-column label="TXID" min-width="280" align="left">
-              <template slot-scope="scope">
-                <span class="click"
-                      @click.exact="toUrl(false,'transactionInfo',scope.row.hash)"
-                      @click.ctrl.exact="toUrl(true,'transactionInfo',scope.row.hash)"
-                >{{ scope.row.hashs }}</span>
+              <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
-            </el-table-column>
+            <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
             <el-table-column :label="$t('public.type')" width="180" align="left">
               <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span></template>
             </el-table-column>
@@ -67,12 +47,11 @@
               <template slot-scope="scope">{{ scope.row.value }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')+ '(NULS)'" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.fee }}</template>
+              <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
 
-          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.page">
-          </paging>
+          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.page"></paging>
         </div>
       </div>
     </div>
@@ -83,11 +62,11 @@
   import moment from 'moment'
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, timesDecimals} from '@/api/util.js'
+  import {getLocalTime,superLong,timesDecimals} from '@/api/util.js'
 
   export default {
     data() {
-      this.colors = ['#7db46d', '#7db46d', '#7db46d',
+      this.colors = ['#7db46d','#7db46d', '#7db46d',
         '#546570', '#c4ccd3'];
       this.chartSettings = {
         yAxisType: ['normal'],
@@ -97,12 +76,12 @@
       };
       return {
         //统计图数据
-        timeChartData: {
+        timeChartData:{
           columns: [],
-          rows: []
+          rows:[]
         },
         timeRateDataLoading: true,
-        timeRate: 2,
+        timeRate:2,
         //交易类型
         typeRegion: 0,
         //隐藏滑块
@@ -110,17 +89,15 @@
         //交易列表
         txList: [],
         //交易列表加载动画
-        txListLoading: true,
+        txListLoading:true,
         //交易列表总数
-        txListTotal: 0,
+        txListTotal:0,
         //分页信息
         pager: {
           total: 0,
           page: 1,
           rows: 6,
-        },
-        //定时器
-        transactionInterval: null,
+        }
       }
     },
     components: {
@@ -129,17 +106,9 @@
     },
     created() {
       this.getYearRateData(this.timeRate);
-      this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
+      this.getTxList(this.pager.page, this.pager.rows,this.typeRegion, this.hideSwitch);
     },
-    mounted() {
-      //10秒循环一次数据
-      this.transactionInterval = setInterval(() => {
-        this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
-      }, 10000);
-    },
-    //离开当前页面后执行
-    destroyed() {
-      clearInterval(this.transactionInterval);
+    mounted(){
     },
     methods: {
 
@@ -151,9 +120,9 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              this.timeChartData.columns = ['key', 'value'];
-              this.timeChartData.rows = response.result;
-              this.timeRateDataLoading = false;
+              this.timeChartData.columns=['key', 'value'];
+              this.timeChartData.rows=response.result;
+              this.timeRateDataLoading =false;
             }
           })
       },
@@ -161,10 +130,10 @@
       /**
        * 选择统计数据的周、月、年
        **/
-      changeDate(type) {
-        this.timeRateDataLoading = true;
-        this.timeChartData.columns = [];
-        this.timeChartData.rows = [];
+      changeDate(type){
+        this.timeRateDataLoading =true;
+        this.timeChartData.columns=[];
+        this.timeChartData.rows=[];
         this.timeRate = type;
         this.getYearRateData(type)
       },
@@ -181,14 +150,14 @@
                 item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.hashs = superLong(item.hash, 20);
                 item.value = timesDecimals(item.value, 8);
-                item.fee = timesDecimals(item.fee, 8);
+                item.fees = timesDecimals(item.fee.value, 8);
               }
               this.txList = response.result.list;
-              if (type === 0 && !show) {
-                this.txListTotal = response.result.totalCount
+              if(type === 0 && !show){
+                this.txListTotal =response.result.totalCount
               }
               this.pager.total = response.result.totalCount;
-              this.txListLoading = false;
+              this.txListLoading= false;
             }
           })
       },
@@ -197,7 +166,7 @@
        * 分页功能
        **/
       pagesList() {
-        this.txListLoading = true;
+        this.txListLoading=true;
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
       },
 
@@ -205,7 +174,7 @@
        * 获取交易类型
        **/
       changeType(type) {
-        this.pager = {total: 0, page: 1, rows: 7,};
+        this.pager={total: 0, page: 1, rows: 7,};
         this.typeRegion = parseInt(type);
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
       },
@@ -214,30 +183,21 @@
        * 隐藏共识奖励
        **/
       hideConsensusList() {
-        this.txListLoading = true;
-        this.pager = {total: 0, page: 1, rows: 6};
+        this.txListLoading= true;
+        this.pager={total: 0, page: 1, rows: 6};
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
       },
 
       /**
        * url 连接跳转
-       * @param open
        * @param name
        * @param parmes
        */
-      toUrl(open = false, name, parmes) {
-        if (open) {
-          let routeData = this.$router.resolve({
-            name: name,
-            query: name === 'transactionInfo' ? {hash: parmes} : {height: parmes}
-          });
-          window.open(routeData.href, '_blank');
-        } else {
-          this.$router.push({
-            name: name,
-            query: name === 'transactionInfo' ? {hash: parmes} : {height: parmes}
-          })
-        }
+      toUrl(name, parmes) {
+        this.$router.push({
+          name: name,
+          query: name === 'transactionInfo' ? {hash: parmes} : {height: parmes}
+        })
       }
     },
   }

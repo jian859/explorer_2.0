@@ -15,11 +15,8 @@
           <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
         </el-table-column>
         <el-table-column :label="$t('public.address')" min-width="280">
-          <template slot-scope="scope">
-            <span class="cursor-p click"
-                  @click.exact="toUrl(false,'addressInfo',scope.row.address,scope.row.type)"
-                  @click.ctrl.exact="toUrl(true,'addressInfo',scope.row.address,scope.row.type)"
-            >{{ scope.row.address }}</span>
+          <template slot-scope="scope"><span class="cursor-p click"
+                                             @click="toUrl('addressInfo',scope.row.address,scope.row.type)">{{ scope.row.address }}</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('public.total')" sortable="true" width="200" align="left">
@@ -33,8 +30,7 @@
         </el-table-column>
 
       </el-table>
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
-      </paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
     </div>
   </div>
 </template>
@@ -110,25 +106,24 @@
 
       /**
        * url 连接跳转
-       * @param open
        * @param name
        * @param parmes
        * @param type
        */
-      toUrl(open = false, name, parmes, type) {
-        if (open) {
-          let routeData = this.$router.resolve({
-            name: name,
-            query: {address: parmes}
-          });
-          window.open(routeData.href, '_blank');
-        } else {
+      toUrl(name, parmes, type) {
+        if (type === 1) {
           this.$router.push({
             name: name,
-            query: type === 1 ? {address: parmes} : {contractAddress: parmes}
+            query: {address: parmes}
+          })
+        } else {
+          this.$router.push({
+            name: 'contractsInfo',
+            query: {contractAddress: parmes}
           })
         }
-      },
+
+      }
     },
   }
 </script>

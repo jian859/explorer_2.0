@@ -78,30 +78,31 @@ const cn ={
     "output":"输出",
     "searchTip":"地址/高度/txhash/...",
     "copy":"点击复制",
-    "copysuccess":"复制成功"
+    "copysuccess":"复制成功",
+    "success":"成功",
+    "fail":"失败",
+    "enforcement":"合约执行"
   },
 
   "type": {
-    "undefined":"",
+    "undefined": "",
     "0": "全部交易",
     "1": "共识奖励",
     "2": "转账交易",
     "3": "设置别名",
     "4": "创建节点",
     "5": "加入共识",
-    "51": "零钱换整",
     "6": "退出共识",
     "7": "黄牌惩罚",
     "8": "红牌惩罚",
     "9": "注销节点",
-    "10": "通用数据",
-    "100":"创建合约",
-    "101":"调用合约",
-    "1011":"调用合约",
-    "102":"删除合约",
-    "103":"合约转账",
-    "104":"合约返还",
-    "1000":"通证转账"
+    "10": "跨链交易",
+    "11": "注册跨链",
+    "15": "创建合约",
+    "16": "调用合约",
+    "17": "删除合约",
+    "18": "合约转账",
+    "19": "合约返还"
   },
 
   "addressType": {
@@ -219,7 +220,8 @@ const cn ={
     "transactionInfo7":"轮",
     "transactionInfo8":"价格",
     "transactionInfo9":"方法",
-    "transactionInfo10":"解锁时间"
+    "transactionInfo10":"解锁时间",
+    "transactionInfo11":"代币转账"
   },
 
   "consensus":{
@@ -253,6 +255,9 @@ const cn ={
     "consensusInfo11":"委托地址",
     "consensusInfo12":"委托时间",
     "consensusInfo13":"历史委托信息",
+    "consensusInfo14":"创建者奖励",
+    "consensusInfo15":"节点创建者奖励等于保证金奖励和收取委托人佣金的总和",
+    "consensusInfo16":"委托者总奖励",
   },
 
   "rotationInfo":{
@@ -287,7 +292,7 @@ const cn ={
     "codeInfo9":"2.压缩包中的文件目录结构和代码需和部署时保持已一致，否则将导致认证不通过",
     "codeInfo10":"对不起，上传的文件不超过5M",
     "codeInfo11":"请求超时请重试",
-    "codeInfo12":"对不起，什么都没查到",
+    "codeInfo12":"请输入正确的Address、Txhash、Block",
     "codeInfo13":"3.zip包中不可包含非Java文件，否则将导致上传认证失败",
   },
 
@@ -305,7 +310,7 @@ const cn ={
     "website":"官网",
     "webWallet":"网页钱包",
     "community":"社区",
-    "about":"关于"
+    "about":"问题反馈"
   },
   ...zhLocale
 };

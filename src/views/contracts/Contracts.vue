@@ -4,24 +4,19 @@
       <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200 tables">
         <el-tab-pane :label="$t('contracts.contracts0')" name="allContract" v-loading="contractListLoading">
           <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('contracts.contracts1')"
-                     @change="hideNrc20List">
-          </el-switch>
+                     @change="hideNrc20List"></el-switch>
           <el-table :data="contractList" stripe border style="width: 100%">
-            <el-table-column label="" width="30">
-            </el-table-column>
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.contractAddress')" width="370" align="left">
+            <el-table-column :label="$t('public.contractAddress')" width="380" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'contractsInfo',scope.row.contractAddress)"
-                      @click.ctrl.exact="toUrl(true,'contractsInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
                 </span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('public.remarks')" min-width="120" align="left">
+            <el-table-column :label="$t('public.remarks')" min-width="100" align="left">
               <template slot-scope="scope">
                 <label v-if="scope.row.remark && scope.row.remark.length > 30">
                   <el-tooltip class="calc fr" effect="light" :content="scope.row.remark" placement="top">
@@ -31,14 +26,14 @@
                 <span v-else>{{ scope.row.remark }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="status" :label="$t('public.status')" width="120" align="left">
+            <el-table-column prop="status" :label="$t('public.status')" width="130" align="left">
               <template slot-scope="scope">
                 <label v-if="isMobile">
                   {{$t('contractStatus.'+scope.row.status)}}
                 </label>
                 <label v-else>
                     <span class="cursor-p click" v-if="scope.row.status ===0"
-                          @click="toUrl(false,'contractsInfo',scope.row.contractAddress,'second')">
+                          @click="toUrl('contractsInfo',scope.row.contractAddress,'second')">
                     {{$t('contractStatus.'+scope.row.status)}}
                   </span>
                   <span v-if="scope.row.status !==0">
@@ -47,15 +42,13 @@
                 </label>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="100" align="left">
+            <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="130" align="left">
               <template slot-scope="scope">{{ scope.row.balance/100000000 }}</template>
             </el-table-column>
-            <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="80"
-                             align="left">
-            </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.createTime')" width="160"
-                             align="left">
-            </el-table-column>
+            <el-table-column prop="transferCount" :label="$t('public.transactionNo')" width="100"
+                             align="left"></el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.createTime')" width="180"
+                             align="left"></el-table-column>
           </el-table>
           <div class="paging">
             <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
@@ -69,19 +62,14 @@
         <el-tab-pane :label="$t('contracts.contracts2')" name="nrc20Contract">
           <div class="hide-div"></div>
           <el-table :data="nrc20List" border stripe style="width: 100%" v-loading="nrc20ListLoading">
-            <el-table-column label="" width="30">
-            </el-table-column>
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
-            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
-                             align="left">
-            </el-table-column>
-            <el-table-column :label="$t('public.abbreviate')" width="140" align="left">
+            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="140"
+                             align="left"></el-table-column>
+            <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'tokenInfo',scope.row.contractAddress)"
-                      @click.ctrl.exact="toUrl(true,'tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.symbol }}
                 </span>
               </template>
@@ -102,21 +90,17 @@
                 </label>
               </template>
             </el-table-column>
-            <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="160"
-                             align="left">
-            </el-table-column>
+            <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="180"
+                             align="left"></el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="220" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'tokenInfo',scope.row.contractAddress)"
-                      @click.ctrl.exact="toUrl(true,'tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
                 </span>
               </template>
             </el-table-column>
             <el-table-column prop="createTime" :label="$t('public.createTime')" width="180"
-                             align="left">
-            </el-table-column>
+                             align="left"></el-table-column>
           </el-table>
 
           <div class="paging">
@@ -176,7 +160,7 @@
       getContractList(page, rows, boolean, boolean1) {
         this.$post('/', 'getContractList', [page, rows, boolean, boolean1])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -240,31 +224,21 @@
 
       /**
        * url 连接跳转
-       * @param open
        * @param name
        * @param contractAddress
        * @param tabName
-       **/
-      toUrl(open = false, name, contractAddress, tabName = 'first') {
+       */
+      toUrl(name, contractAddress, tabName = 'first') {
         let newQuery = {};
         if (name === 'tokenInfo') {
           newQuery = {contractAddress: contractAddress}
         } else {
           newQuery = {contractAddress: contractAddress, tabName: tabName}
         }
-        if (open) {
-          let routeData = this.$router.resolve({
-            name: name,
-            query: newQuery
-          });
-          window.open(routeData.href, '_blank');
-        } else {
-          this.$router.push({
-            name: name,
-            query: newQuery
-          })
-        }
-
+        this.$router.push({
+          name: name,
+          query: newQuery
+        })
       }
     }
   }

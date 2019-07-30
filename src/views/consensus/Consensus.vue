@@ -31,16 +31,14 @@
                  :legend-visible="false"
                  :colors="colors"
                  :settings="chartSettings"
-                 :loading="timeRateDataLoading">
-        </ve-line>
+                 :loading="timeRateDataLoading"></ve-line>
        <!-- <ChartBar showID="mountNodes" :chartData="chartData" width="1200"></ChartBar>-->
       </div>
     </div>
     <div class="info bg-gray">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200 tab_consensus">
         <el-tab-pane :label="$t('consensus.consensus2')" name="first">
-          <ConsensusList>
-          </ConsensusList>
+          <ConsensusList></ConsensusList>
         </el-tab-pane>
         <el-tab-pane :label="$t('consensus.consensus3')" name="second">
           <div class="cards">
@@ -69,11 +67,7 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column :label="$t('public.round')" width="100" align="left">
-              <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click.exact="toUrl(false,'rotationInfo',scope.row.index)"
-                      @click.ctrl.exact="toUrl(true,'rotationInfo',scope.row.index)"
-                >{{ scope.row.index }}</span>
+              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('rotationInfo',scope.row.index)">{{ scope.row.index }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('consensus.consensus9')" min-width="280" align="left">
@@ -81,21 +75,17 @@
                 <span>{{ scope.row.startTime }}&#45;&#45;&#45;&#45;{{ scope.row.endTime }}</span></template>
             </el-table-column>
             <el-table-column prop="memberCount" :label="$t('consensus.consensus10')" width="150"
-                             align="left">
-            </el-table-column>
+                             align="left"></el-table-column>
             <el-table-column :label="$t('public.yellowCard')+'/'+ $t('public.redCard')" width="180" align="left">
               <template slot-scope="scope"><span>{{ scope.row.yellowCardCount }}-{{ scope.row.redCardCount }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="producedBlockCount" :label="$t('consensus.consensus11')" width="150"
-                             align="left">
-            </el-table-column>
+                             align="left"></el-table-column>
             <el-table-column prop="lostRate" :label="$t('public.lostRate')" width="150"
-                             align="left">
-            </el-table-column>
+                             align="left"></el-table-column>
           </el-table>
-          <paging :pager="pager" @change="pagesList">
-          </paging>
+          <paging :pager="pager" @change="pagesList"></paging>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -147,9 +137,7 @@
           total: 0,
           page: 1,
           rows: 5,
-        },
-        //定时器
-        consensusInterval: null,
+        }
       }
     },
     components: {
@@ -157,19 +145,12 @@
       paging,
     },
     created() {
+
       this.getYearRateData(2);
       this.getRoundInfo();
       this.getRoundList(this.pager.page, this.pager.rows);
     },
     mounted() {
-
-      let that = this;
-      //10秒循环一次数据
-      this.consensusInterval = setInterval(() => {
-        that.getRoundInfo();
-        that.getRoundList(that.pager.page, that.pager.rows);
-      }, 10000);
-
       setInterval(() => {
         //流通量
         let newCirculateNumber = new BigNumber(timesDecimals(this.$store.state.NULSNumber.circulation, 11));
@@ -183,11 +164,8 @@
         this.node = this.$store.state.nodeNumber.agentCount;
       }, 100);
     },
-    //离开当前页面后执行
-    destroyed() {
-      clearInterval(this.consensusInterval);
-    },
     methods: {
+
       /**
        * 获取交易历史数据统计
        */
@@ -233,8 +211,8 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.startTime = moment(getLocalTime(response.result.startTime)).format('HH:mm:ss');
-              response.result.endTime = moment(getLocalTime(response.result.endTime)).format('HH:mm:ss');
+              response.result.startTime = moment(getLocalTime(response.result.startTime*1000)).format('HH:mm:ss');
+              response.result.endTime = moment(getLocalTime(response.result.endTime*1000)).format('HH:mm:ss');
               response.result.names = response.result.startBlockHeader.agentAlias ? response.result.startBlockHeader.agentAlias : superLong(response.result.startBlockHeader.agentId, 8);
               this.roundInfo = response.result;
             }
@@ -270,26 +248,11 @@
         this.getRoundList(this.pager.page, this.pager.rows)
       },
 
-      /**
-       * url 连接跳转
-       * @param open
-       * @param name
-       * @param parmes
-       */
-      toUrl(open=false,name, parmes) {
-        if(open){
-          let routeData = this.$router.resolve({
-            name: name,
-            query: {rotation: parmes}
-          });
-          window.open(routeData.href, '_blank');
-        }else {
-          this.$router.push({
-            name: name,
-            query: {rotation: parmes}
-          })
-        }
-
+      toUrl(name, parmes) {
+        this.$router.push({
+          name: name,
+          query: {rotation: parmes}
+        })
       }
 
     },
