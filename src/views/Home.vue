@@ -246,8 +246,7 @@
       getRotationList() {
         this.$post('/', 'getBestRoundInfo', [])
           .then((response) => {
-            console.log('getBestRoundInfo');
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.itemList) {
                 item.agentName = item.agentName ? item.agentName : superLong(item.seedAddress, 6);
